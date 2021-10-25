@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>我的吐槽</title>
+      <link href="/2021/10/25/self/"/>
+      <url>/2021/10/25/self/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 小记 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 日常记录 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>密码学初学</title>
       <link href="/2021/10/23/cryptography/"/>
       <url>/2021/10/23/cryptography/</url>

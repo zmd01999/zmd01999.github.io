@@ -288,6 +288,19 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
 </header>
 
     
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
 
 
 
@@ -590,18 +603,17 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/10/23/cryptography/">
+                <a href="/2021/10/25/self/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="密码学初学">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="我的吐槽">
                         
-                        <span class="card-title">密码学初学</span>
+                        <span class="card-title">我的吐槽</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -611,27 +623,26 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-23
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-10-25
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E5%AE%89%E5%85%A8/" class="post-category">
-                                    网络空间安全
+                            <a href="/categories/%E5%B0%8F%E8%AE%B0/" class="post-category">
+                                    小记
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/">
-                        <span class="chip bg-color">密码学</span>
+                    <a href="/tags/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">
+                        <span class="chip bg-color">日常记录</span>
                     </a>
                     
                 </div>
