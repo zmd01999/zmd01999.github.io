@@ -8,8 +8,7 @@
     <meta name="description" content="
 研0阶段，本科SE专业没有密码学相关基础，所以借着这些空闲时间补一补
 
-密码学流密码（Stream ciphers）相关应用
-RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点：  1.输出字节概率不均匀  2.（0">
+密码学流密码（Stream ciphers）如果一个密码是完美安全的，其全体密码数，不少于其能处理的明文数。SC不是完美加密的算法，它依赖于特定的伪随机生成器（PRG">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -457,14 +456,14 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-24
+                    2021-10-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    134
+                    281
                 </div>
                 
 
@@ -484,7 +483,8 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
                 <blockquote>
 <p>研0阶段，本科SE专业没有密码学相关基础，所以借着这些空闲时间补一补</p>
 </blockquote>
-<h2 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h2><h2 id="流密码（Stream-ciphers）"><a href="#流密码（Stream-ciphers）" class="headerlink" title="流密码（Stream ciphers）"></a>流密码（Stream ciphers）</h2><h3 id="相关应用"><a href="#相关应用" class="headerlink" title="相关应用"></a>相关应用</h3><ul>
+<h2 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h2><h2 id="流密码（Stream-ciphers）"><a href="#流密码（Stream-ciphers）" class="headerlink" title="流密码（Stream ciphers）"></a>流密码（Stream ciphers）</h2><p>如果一个密码是完美安全的，其全体密码数，不少于其能处理的明文数。SC不是完美加密的算法，它依赖于特定的伪随机生成器（PRG）。</p>
+<h3 id="相关应用"><a href="#相关应用" class="headerlink" title="相关应用"></a>相关应用</h3><ul>
 <li><p><code>RC4</code>:种子大小可变<br>在https中和WEP中使用（WEP中使用不当）<br>缺点：<br>  1.输出字节概率不均匀<br>  2.（0，0）出现的概率更大<br>  3.密钥之间关联性大<br><img src="/assets/mdPic/rc4.png" alt="RC4密钥生成过程"></p>
 </li>
 <li><p><code>CSS</code>（混淆系统）：用于加密硬盘<br>使用LFSR</p>
@@ -492,7 +492,11 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
 <li><p><code>eStream -- Sa|sa20</code>：面向硬件和软件<br>可以重复使用密钥K，多了Nonce（新鲜值）</p>
 </li>
 </ul>
-<h3 id="PRG"><a href="#PRG" class="headerlink" title="PRG"></a>PRG</h3>
+<h3 id="PRG"><a href="#PRG" class="headerlink" title="PRG"></a>PRG</h3><p>One-Time-Pad 是完美的加密算法，但是由于密钥和明文长度需要相同，导致实用性不高，所以使用伪随机的方法用少量的字符产生大量的密钥，其依赖于特定的伪随机生成器（PRG）。PRG需要是不可预测的</p>
+<ul>
+<li>语义安全</li>
+</ul>
+<h2 id="分组密码（Block-ciphers）"><a href="#分组密码（Block-ciphers）" class="headerlink" title="分组密码（Block ciphers）"></a>分组密码（Block ciphers）</h2><h3 id="伪随机函数（PRF）"><a href="#伪随机函数（PRF）" class="headerlink" title="伪随机函数（PRF）"></a>伪随机函数（PRF）</h3>
                 
             </div>
             <hr/>
@@ -619,7 +623,7 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            回忆录
                         
                     </div>
                     <div class="publish-info">
@@ -898,8 +902,8 @@ RC4:种子大小可变在https中和WEP中使用（WEP中使用不当）缺点�
                 <span id="year">2021</span>
             
             <a href="/about" target="_blank">枫</a>
-            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
-            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Magic</a>
+            |&nbsp;Personal&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Zone</a>
             <br>
             
             
