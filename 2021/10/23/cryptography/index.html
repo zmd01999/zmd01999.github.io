@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-27
+                    2021-10-28
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    619
+                    926
                 </div>
                 
 
@@ -511,6 +511,44 @@
 <p>而PRP(Pseudo Random Permutation)与PRF的区别就在于前者是双射的,PRP是PRF的一种特殊的形式，其中满足$X=Y$和能够做逆变换。如果伪随机函数(PRF)是安全的，那么它就应该和真正随机函数是不可分辨的。按照现在攻击者的算力，大概率无法辨认这两种函数，便称为不可辨认性。同理，PRP也是如此。</p>
 <h3 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h3><h4 id="Feistel网络"><a href="#Feistel网络" class="headerlink" title="Feistel网络"></a>Feistel网络</h4><ul>
 <li>Feistel Network的逆函数和本身是一样的结构，Luby-Rackoff在85年的时候就证明了只要有三轮Feistel Network结构，便可以构建一个安全的PRP<br><img src="/assets/mdPic/fei.png" alt="Feistel机制"><br><img src="/assets/mdPic/feini.png" alt="Feistel求逆"></li>
+</ul>
+<h3 id="AES"><a href="#AES" class="headerlink" title="AES"></a>AES</h3><p>AES为分组密码，分组密码也就是把明文分成一组一组的，每组长度相等，每次加密一组数据，直到加密完整个明文。</p>
+<h4 id="Subs-Perm-网络"><a href="#Subs-Perm-网络" class="headerlink" title="Subs-Perm 网络"></a>Subs-Perm 网络</h4><p><img src="/assets/mdPic/aes.png" alt="网络结构"><br>AES的加密公式为$C = E(K,P)$，在加密函数E中，会执行一个轮函数，并且执行10次这个轮函数，这个轮函数的前9次执行的操作是一样的，只有第10次有所不同。也就是说，一个明文分组会被加密10轮。AES的核心就是实现一轮中的所有操作<br><img src="/assets/mdPic/aes128.png" alt="AES-128加密细节"><br>其中，在ByteSub部分，采用的是查找表的方式，目的是为了减少加密过程中的复杂计算时间。<br><img src="/assets/mdPic/aesr.png" alt="每轮的操作"></p>
+<ul>
+<li><p>字节代换：通过查表(S盒)进行变换</p>
+<table>
+<thead>
+<tr>
+<th align="center">行/列</th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">0x52</td>
+<td align="center">0x6a</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">1</td>
+<td align="center">0x54</td>
+<td align="center">0x39</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">0x08</td>
+<td align="center">0xd0</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>行移位<br>是一个简单的左循环移位操作。当密钥长度为128比特时，状态矩阵的第0行左移0字节，第1行左移1字节，第2行左移2字节，第3行左移3字节</p>
+</li>
+<li><p>列混合<br>通过矩阵相乘来实现的，经行移位后的状态矩阵与固定的矩阵相乘，得到混淆后的状态矩阵</p>
+</li>
 </ul>
 
                 
