@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-28
+                    2021-10-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    926
+                    1.4k
                 </div>
                 
 
@@ -550,7 +550,26 @@
 <li><p>列混合<br>通过矩阵相乘来实现的，经行移位后的状态矩阵与固定的矩阵相乘，得到混淆后的状态矩阵</p>
 </li>
 </ul>
-
+<h3 id="相关应用-1"><a href="#相关应用-1" class="headerlink" title="相关应用"></a>相关应用</h3><h4 id="一次性密钥-One-Time-Key"><a href="#一次性密钥-One-Time-Key" class="headerlink" title="一次性密钥(One Time Key)"></a>一次性密钥(One Time Key)</h4><p>ECB(Electronic Code Book)不是语义安全的,它会导致在明文相等的值映射到密文也一样相等。<br>安全的构建方法(Deterministic Counter Mode)为了避免ECB的错误加密方式，在处理每一组消息时，我们都会用一个唯一的PRF来进行加密。</p>
+<h4 id="多次密钥-many-time-Key"><a href="#多次密钥-many-time-Key" class="headerlink" title="多次密钥(many-time Key)"></a>多次密钥(many-time Key)</h4><p>明文攻击(chosen-plaintext attack CPA)：攻击者将明文给目标，目标返回相应密文，破解语义安全<br>解决方法：</p>
+<ul>
+<li><p>随机加密<br>将明文$m_0$映射到球里的随机一个点(字符串)，当解密时找到这个点所属的球再映射到明文$m_0$<br>这样加密同一条信息会得到不同的密文<br><img src="/assets/mdPic/random.png" alt="映射图示"></p>
+</li>
+<li><p>增加新鲜值(Nonce)<br>有三个输入密钥$k$，明文$m$，新鲜值$n$。二元对(${k,n}$)只能用来加密一个明文<br>使用方法：<br>➡计数：HTTPS协议中数据包按顺序发收的，所以它们有共同的计数器，这种情况不再需要传递<code>Nonce</code>；但是再IP协议中数据包乱序的，这种情况<code>Nonce</code>需要包含在数据包里传输了<br>➡随机：要求<code>Nonce Space</code>足够大，才能保证不会重复的几率很高</p>
+</li>
+<li><p>密码分组链接模式(CBC)<br>需要保证$IV$($initial vector$)是不可预测的才是安全的<br><img src="/assets/mdPic/cbc.png" alt="具有随机IV的CBC"></p>
+<blockquote>
+<p>nonce-based CBC:<br>两个密钥$K,K_1$，其中一个密钥用来配合非随机$nonce$加密$IV$</p>
+</blockquote>
+</li>
+<li><p>随机计数器模式(CTR)<br>CRT加密方案可以并行处理，而CBC的方案只能串行处理<br><img src="/assets/mdPic/crt.png" alt="具有随机IV的CRT"></p>
+<blockquote>
+<p>Nonce CRT-Mode:<br>在这里，$IV$前64bits是随机数，而后64bits是计数器（对于每个消息而言，从0开始计数），因为64位的计数器的限制，方案如果加密超过了$2^{64}$个消息，就会出现重复使用相同%nonce%的问题</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="初体验"><a href="#初体验" class="headerlink" title="初体验"></a>初体验</h4><p>一个加密模式要么有随机初始值，要么就用Nonce来达到语义安全</p>
+<h2 id="信息完整性"><a href="#信息完整性" class="headerlink" title="信息完整性"></a>信息完整性</h2>
                 
             </div>
             <hr/>
