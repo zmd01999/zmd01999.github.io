@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-29
+                    2021-10-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    2.3k
                 </div>
                 
 
@@ -569,7 +569,53 @@
 </li>
 </ul>
 <h4 id="初体验"><a href="#初体验" class="headerlink" title="初体验"></a>初体验</h4><p>一个加密模式要么有随机初始值，要么就用Nonce来达到语义安全</p>
-<h2 id="信息完整性"><a href="#信息完整性" class="headerlink" title="信息完整性"></a>信息完整性</h2>
+<h2 id="信息完整性"><a href="#信息完整性" class="headerlink" title="信息完整性"></a>信息完整性</h2><p>基本的机制：$MAC$（$Message Authentication Code$）<br>需要共享密钥$k$，假如不使用密钥而选择$tag$←$CRC(m)$，$V(m,tag)$，这样攻击者可以劫持信息然后再自己发送一条出去，接收者也会认为是正确的而且是认定的发送者发出来的。</p>
+<ul>
+<li>$MAC$签名算法：$tag←S(k,m)$</li>
+<li>$MAC$验证算法：$V(k,m,t)$ = “$yes$” or “$no$”</li>
+</ul>
+<h3 id="MAC系统的安全性定义"><a href="#MAC系统的安全性定义" class="headerlink" title="MAC系统的安全性定义"></a>MAC系统的安全性定义</h3><ul>
+<li>攻击者进行<code>选择信息攻击(chosen message attack)</code>，达到<code>存在性伪造(existential forgery)</code>的目的,也就是产生一些新的信息标签对，如果攻击者能达到这个目的那么这个系统就是不安全的，反之安全。</li>
+</ul>
+<h3 id="相关应用-2"><a href="#相关应用-2" class="headerlink" title="相关应用"></a>相关应用</h3><h4 id="安全的PRF→安全的MAC"><a href="#安全的PRF→安全的MAC" class="headerlink" title="安全的PRF→安全的MAC"></a>安全的PRF→安全的MAC</h4><p>$F:K × X → Y$，发送方$tag←F(k,m)$，接收方验证$if$ $tag=F(k,m)$就接收,只有当F输出位数比较少时会有危险,经验来说，只要结果空间大于$2^{80}$，我们就可以说它是安全的</p>
+<blockquote>
+<p>一个安全的$PRF$截断之后还是安全的</p>
+</blockquote>
+<p>将$Small-MAC$ 转换成 $Big-MAC$？</p>
+<h4 id="CBC-MAC"><a href="#CBC-MAC" class="headerlink" title="CBC-MAC"></a>CBC-MAC</h4><p><img src="/assets/mdPic/cbcmac.png" alt="CBC-MAC/ECBC"></p>
+<ul>
+<li>允许输入的信息包含的分组数可变,每个分组的长度与底层PRF的分组长度一致</li>
+<li>如果没有最后一个加密步骤的这个函数称为<code>rowCBC</code></li>
+<li>如果没有最后一个加密，针对它的攻击：首先第一次攻击给一个分组大小信息$m$,根据方程$rawCBC(k,m)=F(k,m)$ 得出$t$，第二次攻击在$m$基础上填充$t \oplus m$，也就是信息$(m,t \oplus m)$，根据公式$rowCBC(k,(m,t \oplus m))=F(k,F(k,m) \oplus (t \oplus m))=F(k,t \oplus (t \oplus m))=t$，可以得到新的信息标签对$((m||t \oplus m),t)$</li>
+</ul>
+<h4 id="NMAC"><a href="#NMAC" class="headerlink" title="NMAC"></a>NMAC</h4><p>将密钥和第一个分组输入产生下一个密钥，进行迭代。<br><img src="/assets/mdPic/nmac.png" alt="NMAC"></p>
+<ul>
+<li>在$t$之前的整个过程称为<code>级联函数(Cascade Function)</code>，所以级联函数输出的是一个$k$，它不是一个安全的MAC</li>
+<li>$fpad$是固定的补齐，因为一般情况下密钥长度都会远小于$PRF$分组长度$|X|$</li>
+<li>最后一步是加密，如果没有这一步就可以再加一级$m[5]$通过函数$F$得到新结果$K_{new}$，产生新的信息标签对$(m||m[5],k_{new})$，根据安全性定义得出不安全。<blockquote>
+<p>这种扩展攻击是针对级联的唯一一种攻击</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="MAC-padding"><a href="#MAC-padding" class="headerlink" title="MAC padding"></a>MAC padding</h3><h4 id="CBC-MAC-padding"><a href="#CBC-MAC-padding" class="headerlink" title="CBC MAC padding"></a>CBC MAC padding</h4><p>补齐函数需要满足$m1 \ne m2$  $\Rightarrow$  $pad(m1) \ne pad(m2)$<br>ISO标准：</p>
+<ul>
+<li>在后面加”1000….00”来补齐</li>
+<li>如果信息已经是整数倍分组了，还是要增加一个1000…的分组</li>
+</ul>
+<h4 id="CMAC-NIST-standard"><a href="#CMAC-NIST-standard" class="headerlink" title="CMAC (NIST standard)"></a>CMAC (NIST standard)</h4><p>与CBC-MAC区别在于它有三个密钥$key=(k,k_1,k_2)$，后两者是由$k$推出来的</p>
+<ul>
+<li>没有最后的加密步骤，取而代之的是最后和$k_1$或$k_2$异或</li>
+<li>区分了是整数组还是非整数组的情况，用$k_1$和$k_2$分别代表，所以整数组不用额外增加分组了<blockquote>
+<p>使用AES作为底层函数</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="并行MAC-Parallel-MAC"><a href="#并行MAC-Parallel-MAC" class="headerlink" title="并行MAC(Parallel MAC)"></a>并行MAC(Parallel MAC)</h3><h4 id="PMAC-parallel-MAC"><a href="#PMAC-parallel-MAC" class="headerlink" title="PMAC-parallel MAC"></a>PMAC-parallel MAC</h4><p><img src="/assets/mdPic/pmac.png" alt="PMAC"></p>
+<ul>
+<li>函数$P$主要作用是保持顺序，因为是并行的如果没有$P$那么交换顺序得出结果也是一样的</li>
+<li>当$F$是$PRP$时改变某一信息可以快速计算出新$tag$<br>如：当$m[0]→ m^{`}[0]$时，只需要做运算$F^{-1}(k_1,tag) \oplus F(k_1,m[0] \oplus p(k,0)) \oplus F(k1,m^{‘}[0] \oplus p(k,0))$ 得出新$tag$</li>
+</ul>
+<h3 id="One-time-MAC"><a href="#One-time-MAC" class="headerlink" title="One-time MAC"></a>One-time MAC</h3>
                 
             </div>
             <hr/>
