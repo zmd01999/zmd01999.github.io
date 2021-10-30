@@ -463,7 +463,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.3k
+                    2.4k
                 </div>
                 
 
@@ -569,7 +569,7 @@
 </li>
 </ul>
 <h4 id="初体验"><a href="#初体验" class="headerlink" title="初体验"></a>初体验</h4><p>一个加密模式要么有随机初始值，要么就用Nonce来达到语义安全</p>
-<h2 id="信息完整性"><a href="#信息完整性" class="headerlink" title="信息完整性"></a>信息完整性</h2><p>基本的机制：$MAC$（$Message Authentication Code$）<br>需要共享密钥$k$，假如不使用密钥而选择$tag$←$CRC(m)$，$V(m,tag)$，这样攻击者可以劫持信息然后再自己发送一条出去，接收者也会认为是正确的而且是认定的发送者发出来的。</p>
+<h2 id="信息完整性-Message-integrity"><a href="#信息完整性-Message-integrity" class="headerlink" title="信息完整性(Message integrity)"></a>信息完整性(Message integrity)</h2><p>基本的机制：$MAC$（$Message Authentication Code$）<br>需要共享密钥$k$，假如不使用密钥而选择$tag$←$CRC(m)$，$V(m,tag)$，这样攻击者可以劫持信息然后再自己发送一条出去，接收者也会认为是正确的而且是认定的发送者发出来的。</p>
 <ul>
 <li>$MAC$签名算法：$tag←S(k,m)$</li>
 <li>$MAC$验证算法：$V(k,m,t)$ = “$yes$” or “$no$”</li>
@@ -615,7 +615,14 @@
 <li>函数$P$主要作用是保持顺序，因为是并行的如果没有$P$那么交换顺序得出结果也是一样的</li>
 <li>当$F$是$PRP$时改变某一信息可以快速计算出新$tag$<br>如：当$m[0]→ m^{`}[0]$时，只需要做运算$F^{-1}(k_1,tag) \oplus F(k_1,m[0] \oplus p(k,0)) \oplus F(k1,m^{‘}[0] \oplus p(k,0))$ 得出新$tag$</li>
 </ul>
-<h3 id="One-time-MAC"><a href="#One-time-MAC" class="headerlink" title="One-time MAC"></a>One-time MAC</h3>
+<h3 id="One-time-MAC"><a href="#One-time-MAC" class="headerlink" title="One-time MAC"></a>One-time MAC</h3><p>比使用PRF的MAC更快，使用一次的情况下是安全的</p>
+<ul>
+<li>$One-time MAC → Many-time MAC$<blockquote>
+<p>Carter-Wegman MAC</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="抗碰撞-Collision-resistance"><a href="#抗碰撞-Collision-resistance" class="headerlink" title="抗碰撞(Collision resistance)"></a>抗碰撞(Collision resistance)</h2>
                 
             </div>
             <hr/>
