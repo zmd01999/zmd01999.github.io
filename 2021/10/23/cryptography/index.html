@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-31
+                    2021-11-01
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.8k
+                    3.1k
                 </div>
                 
 
@@ -631,22 +631,34 @@
 <blockquote>
 <p>在均匀分布的情况下，$n=1.2×B^{\frac 1 2} $ 碰撞的概率 $ \ge \frac 1 2 $,在生日中$B=365$</p>
 </blockquote>
-<h3 id="Merkle-Damgard-Paradigm"><a href="#Merkle-Damgard-Paradigm" class="headerlink" title="Merkle-Damgard Paradigm"></a>Merkle-Damgard Paradigm</h3><p><img src="/assets/mdPic/mdic.png" alt="MD iterated construction"></p>
+<h3 id="Merkle-Damgard-Paradigm"><a href="#Merkle-Damgard-Paradigm" class="headerlink" title="Merkle-Damgard Paradigm"></a>Merkle-Damgard Paradigm</h3><p>因为所需的安全散列长度越来越长，因此我们可以使用有限定义域上的散列函数（俗称压缩函数）通过迭代方式拓展为具有无限定义域的散列函数。而最为代表性的就Merkle-Damgard结构<br><img src="/assets/mdPic/mdic.png" alt="MD iterated construction"></p>
 <blockquote>
 <p>定理:只要h满足抗碰撞(collision resistance)，那么H也会满足抗碰撞的条件</p>
 </blockquote>
+<p>如果最后分组是完整的那么就加一个假分组（1000…|| mes len）</p>
 <h3 id="压缩函数-Constructing-Compression-Functions"><a href="#压缩函数-Constructing-Compression-Functions" class="headerlink" title="压缩函数(Constructing Compression Functions)"></a>压缩函数(Constructing Compression Functions)</h3><h4 id="由分组密码构建"><a href="#由分组密码构建" class="headerlink" title="由分组密码构建"></a>由分组密码构建</h4><ul>
-<li><p><code>Davies-Meyer</code></p>
-</li>
-<li><p><code>Miyaguchi-Preneel</code></p>
-</li>
+<li><code>Davies-Meyer</code><br>$h(H,m)=E(m,H) \oplus H $其中$E$是加密函数<br><img src="/assets/mdPic/dm.png" alt="Davies-Meyer"></li>
 </ul>
-<h5 id="SHA-256"><a href="#SHA-256" class="headerlink" title="SHA-256"></a>SHA-256</h5><ul>
+<blockquote>
+<p>定理：E是理想的分组密码的假设下，找到这个压缩函数H的碰撞需要$O(2^{\frac n 2})$的时间</p>
+</blockquote>
+<ul>
+<li><code>Miyaguchi-Preneel</code></li>
+</ul>
+<h5 id="SHA-256"><a href="#SHA-256" class="headerlink" title="SHA-256"></a>SHA-256</h5><p><img src="/assets/mdPic/sha256.png" alt="SHA-256"></p>
+<ul>
 <li>使用<code>Merkle Damgard function</code></li>
 <li><code>Daview-Meyer</code>压缩函数</li>
 <li>底层使用<code>SHACAL-2</code>（分组密码）</li>
 </ul>
-<h4 id="由数论里的困难问题构建"><a href="#由数论里的困难问题构建" class="headerlink" title="由数论里的困难问题构建"></a>由数论里的困难问题构建</h4><h3 id="HMAC-Hash-MAC"><a href="#HMAC-Hash-MAC" class="headerlink" title="HMAC(Hash-MAC)"></a>HMAC(Hash-MAC)</h3><p><img src="/assets/mdPic/hmac.png" alt="HMAC"></p>
+<h4 id="由数论里的困难问题构建"><a href="#由数论里的困难问题构建" class="headerlink" title="由数论里的困难问题构建"></a>由数论里的困难问题构建</h4><p>$………..$</p>
+<h3 id="HMAC-Hash-MAC"><a href="#HMAC-Hash-MAC" class="headerlink" title="HMAC(Hash-MAC)"></a>HMAC(Hash-MAC)</h3><p>$S(k,m)=H(k \oplus opad,H(k \oplus ipad||m))$</p>
+<blockquote>
+<p>ipad（内部密码本），opad外部密码本<br><img src="/assets/mdPic/hmac.png" alt="HMAC"><br>使用哈希函数而不使用PRF构建MAC</p>
+</blockquote>
+<ul>
+<li>与NMAC的区别<br>两个$K$与内外密码本异或作为输入它们之间是<code>依赖</code>的，然后产 生的对应$NMAC$的$K_1,K_2$也是相关联的</li>
+</ul>
 <h4 id="对HMAC的计时攻击"><a href="#对HMAC的计时攻击" class="headerlink" title="对HMAC的计时攻击"></a>对HMAC的计时攻击</h4><p>对于HMAC的验证时对tag逐个字节判断,当第一次出现不同时跳出循环<br>所以攻击者固定信息,改变tag</p>
 <ul>
 <li>第一步:随机tag请求,测量返回时间</li>
