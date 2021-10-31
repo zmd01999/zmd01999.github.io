@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-10-30
+                    2021-10-31
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    2.8k
                 </div>
                 
 
@@ -622,7 +622,42 @@
 </blockquote>
 </li>
 </ul>
-<h2 id="抗碰撞-Collision-resistance"><a href="#抗碰撞-Collision-resistance" class="headerlink" title="抗碰撞(Collision resistance)"></a>抗碰撞(Collision resistance)</h2>
+<h2 id="抗碰撞-Collision-resistance"><a href="#抗碰撞-Collision-resistance" class="headerlink" title="抗碰撞(Collision resistance)"></a>抗碰撞(Collision resistance)</h2><h3 id="生日悖论"><a href="#生日悖论" class="headerlink" title="生日悖论"></a>生日悖论</h3><p>令$E(n)$表示人数为n时两人生日相同的概率<br>$$ E(n)=\prod^{n-1}_{i=1}\left ( 1-\frac i {365} \right ) \ $$</p>
+<p>由平均值不等式：<br>$$ E(n)=\sqrt[n-1] {\prod_{i=1}^{n-1}\left (1- \frac i {365} \right )} &lt; {\frac 1 {n-1}} \sum^{n-1}_{i=1} \left (1- \frac i {365} \right ) \ $$</p>
+<p>去根号得：<br>$$ \prod_{i=1}^{n-1}\left (1- \frac i {365} \right ) &lt; \left( {\frac 1 {n-1}} \sum^{n-1}_{i=1} \left (1- \frac i {365} \right )\right)^{n-1} \ $$</p>
+<p>注意到等式左右满足等差数列性质：<br>$$ \left( {\frac 1 {n-1}} \sum^{n-1}_{i=1} \left (1- \frac i {365} \right )\right)^{n-1} = \left(1-\frac n {730}\right)^{n-1} \ $$</p>
+<p>由泰勒展开的等阶无穷小推论 $ \left(e^x&gt;1+x\right) \Longleftrightarrow (e^{-x}&gt;1-x) \ $ 可知：<br>$$ \left(1-\frac n {730}\right)^{n-1} \lt \left(e^{-n/730}\right)^{n-1} = e^{-(n^2-n)/730} \ $$</p>
+<p>当 $ n^2-n&gt;730\log_e2 \cong 506…$ 时<br>$$n=23$$</p>
+<blockquote>
+<p>在均匀分布的情况下，$n=1.2×B^{\frac 1 2} $ 碰撞的概率 $ \ge \frac 1 2 $,在生日中$B=365$</p>
+</blockquote>
+<h3 id="Merkle-Damgard-Paradigm"><a href="#Merkle-Damgard-Paradigm" class="headerlink" title="Merkle-Damgard Paradigm"></a>Merkle-Damgard Paradigm</h3><p><img src="/assets/mdPic/mdic.png" alt="MD iterated construction"></p>
+<blockquote>
+<p>定理:只要h满足抗碰撞(collision resistance)，那么H也会满足抗碰撞的条件</p>
+</blockquote>
+<h3 id="压缩函数-Constructing-Compression-Functions"><a href="#压缩函数-Constructing-Compression-Functions" class="headerlink" title="压缩函数(Constructing Compression Functions)"></a>压缩函数(Constructing Compression Functions)</h3><h4 id="由分组密码构建"><a href="#由分组密码构建" class="headerlink" title="由分组密码构建"></a>由分组密码构建</h4><ul>
+<li><p><code>Davies-Meyer</code></p>
+</li>
+<li><p><code>Miyaguchi-Preneel</code></p>
+</li>
+</ul>
+<h5 id="SHA-256"><a href="#SHA-256" class="headerlink" title="SHA-256"></a>SHA-256</h5><ul>
+<li>使用<code>Merkle Damgard function</code></li>
+<li><code>Daview-Meyer</code>压缩函数</li>
+<li>底层使用<code>SHACAL-2</code>（分组密码）</li>
+</ul>
+<h4 id="由数论里的困难问题构建"><a href="#由数论里的困难问题构建" class="headerlink" title="由数论里的困难问题构建"></a>由数论里的困难问题构建</h4><h3 id="HMAC-Hash-MAC"><a href="#HMAC-Hash-MAC" class="headerlink" title="HMAC(Hash-MAC)"></a>HMAC(Hash-MAC)</h3><p><img src="/assets/mdPic/hmac.png" alt="HMAC"></p>
+<h4 id="对HMAC的计时攻击"><a href="#对HMAC的计时攻击" class="headerlink" title="对HMAC的计时攻击"></a>对HMAC的计时攻击</h4><p>对于HMAC的验证时对tag逐个字节判断,当第一次出现不同时跳出循环<br>所以攻击者固定信息,改变tag</p>
+<ul>
+<li>第一步:随机tag请求,测量返回时间</li>
+<li>根据返回时间判断是第几个字节错误的,这样一直判断</li>
+</ul>
+<p>应对:</p>
+<ul>
+<li>先判断tag字节数是否正确,固定检查时间，让攻击者无法进行攻击；缺点在于，优化过的编译器可能会忽略这个过程，还是会有运行时间的差距</li>
+<li>不对两个目标值进行进行比较，而是通过间接的方式:再hash一次</li>
+</ul>
+
                 
             </div>
             <hr/>
