@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-01
+                    2021-11-02
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.4k
+                    3.9k
                 </div>
                 
 
@@ -564,7 +564,7 @@
 </li>
 <li><p>随机计数器模式(CTR)<br>CRT加密方案可以并行处理，而CBC的方案只能串行处理<br><img src="/assets/mdPic/crt.png" alt="具有随机IV的CRT"></p>
 <blockquote>
-<p>Nonce CRT-Mode:<br>在这里，$IV$前64bits是随机数，而后64bits是计数器（对于每个消息而言，从0开始计数），因为64位的计数器的限制，方案如果加密超过了$2^{64}$个消息，就会出现重复使用相同%nonce%的问题</p>
+<p>Nonce CRT-Mode:<br>在这里，$IV$前64bits是随机数，而后64bits是计数器（对于每个消息而言，从0开始计数），因为64位的计数器的限制，方案如果加密超过了$2^{64}$个消息，就会出现重复使用相同$nonce$的问题</p>
 </blockquote>
 </li>
 </ul>
@@ -689,6 +689,30 @@
 </blockquote>
 <p>GCM是相对更快的，但有更大的代码量，在一般的智能卡里面不太好实现</p>
 <h4 id="OCB：由PRP构建的认证加密机制"><a href="#OCB：由PRP构建的认证加密机制" class="headerlink" title="OCB：由PRP构建的认证加密机制"></a>OCB：由PRP构建的认证加密机制</h4><p>只需对每个分组计算PRP一次<br>$……$</p>
+<h3 id="TLS"><a href="#TLS" class="headerlink" title="TLS"></a>TLS</h3><ul>
+<li><code>padding oracle attack</code></li>
+<li><code>timing attack</code></li>
+</ul>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><h3 id="Key-Derivation"><a href="#Key-Derivation" class="headerlink" title="Key Derivation"></a>Key Derivation</h3><p>通过<em>Source Key</em> 产生许多满足伪随机性质的<em>keys</em>.<br>当<em>Source Key</em> 是安全PRF产生的<strong>均匀</strong>随机密钥，我们可以直接用KDF(密钥推导函数)生成密钥来保证会话安全<br>$$ KDF(SK,CTX,L):=F(SK,(CTX||0)) || F(SK,(CTX||1)) || ….. || F(SK,(CTX||L)) $$</p>
+<blockquote>
+<p><code>CTX</code>(上下文字符)： 用来分离各个进程，比如SSh，网页服务器和IPsec它们都从硬件的随机数发生器获得了同样的原密钥，由于CTX不一样可以确保它们可以获得独立的密钥来保护会话安全</p>
+</blockquote>
+<p>当$Source Key$是<strong>非均匀</strong>的时候<br>采取 <code>Extract-then-Expand</code></p>
+<ul>
+<li>1.将不均匀的SK通过提取变成均匀的(与真随机不可区分)<br><img src="/assets/mdPic/erandom.png" alt="提取"></li>
+<li>2.扩展到需要的位数</li>
+</ul>
+<p>不是均匀分布的常见原因：</p>
+<ul>
+<li><em>Source key</em>经常不是随机分布的，比如在key exchange protocol中，key值只在K的一个子集中均匀分布</li>
+<li>在<em>hardware RNG</em>中，它可能会输出带有偏置的输出结果.</li>
+</ul>
+<h4 id="HKDF-a-KDF-from-HAMC"><a href="#HKDF-a-KDF-from-HAMC" class="headerlink" title="HKDF(a KDF from HAMC)"></a>HKDF(a KDF from HAMC)</h4><p>使用$k←HMAC(salt，SK)$来提取均匀的密钥，再使用<em>HMAC</em>作为<em>PRF</em>扩展</p>
+<h4 id="PBKDF-Password-Based-KDF"><a href="#PBKDF-Password-Based-KDF" class="headerlink" title="PBKDF(Password-Based KDF)"></a>PBKDF(Password-Based KDF)</h4><p>$H^{(c)}(pwd||salt)$：循环$c$次$H$</p>
+<h3 id="确定性加密-Deterministic-Encryption"><a href="#确定性加密-Deterministic-Encryption" class="headerlink" title="确定性加密(Deterministic Encryption)"></a>确定性加密(Deterministic Encryption)</h3><p>加密系统总是把给定的明文映射到同一密文,适用于明文符合随机或者每次请求的明文唯一的情况(<code>数据库索引</code>)，概况来说就是用不同的$pair(k,m)$加密每一个消息. 这样的话，它就具有$CPA$安全<br>固定$IV$的情况下$CBC$以及$CRT$都是$CPA$不安全的</p>
+<h3 id="SIV-and-wide-PRP"><a href="#SIV-and-wide-PRP" class="headerlink" title="SIV and wide PRP"></a>SIV and wide PRP</h3><h4 id="Synthetic-IV-合成IV"><a href="#Synthetic-IV-合成IV" class="headerlink" title="Synthetic IV(合成IV)"></a>Synthetic IV(合成IV)</h4><p>$$<br>E_{det}((k1,k2),m) =<br>\begin{cases}<br>r←F(k_1,m) &amp;&amp;\<br>c←E(k_2,m,r)<br>\end{cases}<br>$$</p>
+<p>适合大于一个AES分组的信息</p>
+<p>SIV-CTR(随机IV)</p>
 
                 
             </div>
