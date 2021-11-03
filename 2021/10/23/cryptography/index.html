@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-02
+                    2021-11-03
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3.9k
+                    4.7k
                 </div>
                 
 
@@ -483,7 +483,7 @@
                 <blockquote>
 <p>研0阶段，本科SE专业没有密码学相关基础，所以借着这些空闲时间补一补</p>
 </blockquote>
-<h2 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h2><h2 id="流密码（Stream-ciphers）"><a href="#流密码（Stream-ciphers）" class="headerlink" title="流密码（Stream ciphers）"></a>流密码（Stream ciphers）</h2><p>如果一个密码是完美安全的，其全体密码数，不少于其能处理的明文数。SC不是完美加密的算法，它依赖于特定的伪随机生成器（PRG）。</p>
+<h1 id="密码学"><a href="#密码学" class="headerlink" title="密码学"></a>密码学</h1><h2 id="流密码（Stream-ciphers）"><a href="#流密码（Stream-ciphers）" class="headerlink" title="流密码（Stream ciphers）"></a>流密码（Stream ciphers）</h2><p>如果一个密码是完美安全的，其全体密码数，不少于其能处理的明文数。SC不是完美加密的算法，它依赖于特定的伪随机生成器（PRG）。</p>
 <h3 id="相关应用"><a href="#相关应用" class="headerlink" title="相关应用"></a>相关应用</h3><ul>
 <li><p><code>RC4</code>:种子大小可变<br>在https中和WEP中使用（WEP中使用不当）<br>缺点：<br>  1.输出字节概率不均匀<br>  2.（0，0）出现的概率更大<br>  3.密钥之间关联性大<br><img src="/assets/mdPic/rc4.png" alt="RC4密钥生成过程"></p>
 </li>
@@ -711,9 +711,62 @@
 <h4 id="PBKDF-Password-Based-KDF"><a href="#PBKDF-Password-Based-KDF" class="headerlink" title="PBKDF(Password-Based KDF)"></a>PBKDF(Password-Based KDF)</h4><p>$H^{(c)}(pwd||salt)$：循环$c$次$H$</p>
 <h3 id="确定性加密-Deterministic-Encryption"><a href="#确定性加密-Deterministic-Encryption" class="headerlink" title="确定性加密(Deterministic Encryption)"></a>确定性加密(Deterministic Encryption)</h3><p>加密系统总是把给定的明文映射到同一密文,适用于明文符合随机或者每次请求的明文唯一的情况(<code>数据库索引</code>)，概况来说就是用不同的$pair(k,m)$加密每一个消息. 这样的话，它就具有$CPA$安全<br>固定$IV$的情况下$CBC$以及$CRT$都是$CPA$不安全的</p>
 <h3 id="SIV-and-wide-PRP"><a href="#SIV-and-wide-PRP" class="headerlink" title="SIV and wide PRP"></a>SIV and wide PRP</h3><h4 id="Synthetic-IV-合成IV"><a href="#Synthetic-IV-合成IV" class="headerlink" title="Synthetic IV(合成IV)"></a>Synthetic IV(合成IV)</h4><p>$$<br>E_{det}((k1,k2),m) =<br>\begin{cases}<br>r←F(k_1,m) &amp;&amp;\<br>c←E(k_2,m,r)<br>\end{cases}<br>$$</p>
-<p>适合大于一个AES分组的信息</p>
-<p>SIV-CTR(随机IV)</p>
-
+<blockquote>
+<p>定理：$E_{det}$在确定的选择明文攻击下是$CPA$安全的<br>适合大于一个AES分组的信息</p>
+</blockquote>
+<ul>
+<li><code>SIV-CTR(随机IV)</code><br>$DAE：$确定性的认证加密$(deterministic \ authenticated \ encryption)$<br>在不使用<code>MAC</code>的情况下保证了信息完整性<br><img src="/assets/mdPic/siv.png" alt="SIV加密"><br><img src="/assets/mdPic/dsiv.png" alt="SIV解密"><br>$IV$是由$PRF$根据明文得出来的，解密时会将解密的明文再用$PRF$来验证$IV$是否改变，如果信息被改动那么解密的$IV$和输入的$IV$不一样，这样就可以判断是否被改动，可以提供完整性</li>
+</ul>
+<blockquote>
+<p>定理：如果F是安全的PRF，计数器模式下是由CPA安全的F_ctr推出的，这样得到的就是确定性的认证加密系统</p>
+</blockquote>
+<h4 id="只使用PRP"><a href="#只使用PRP" class="headerlink" title="只使用PRP"></a>只使用PRP</h4><ul>
+<li><p>EME<br>$……$</p>
+</li>
+<li><p>在信息后面附0，解密的时候有足够的0那么可以作为完整性检测，提供了确定的认证加密</p>
+</li>
+</ul>
+<h3 id="微调加密-Tweakable-encryption"><a href="#微调加密-Tweakable-encryption" class="headerlink" title="微调加密(Tweakable encryption)"></a>微调加密(Tweakable encryption)</h3><p>目标是硬盘加密需要不扩展的加密</p>
+<blockquote>
+<p>引理：一个确定的CPA安全的密码，它的明文空间等于密文空间，那么这实际上是PRP</p>
+</blockquote>
+<h4 id="Tweakable-block-ciphers"><a href="#Tweakable-block-ciphers" class="headerlink" title="Tweakable block ciphers"></a>Tweakable block ciphers</h4><p>$$E,D:K×T×X→X$$  $T \in$ 微调空间</p>
+<h5 id="Trivial-Construction"><a href="#Trivial-Construction" class="headerlink" title="Trivial Construction"></a>Trivial Construction</h5><p><img src="/assets/mdPic/tc.png" alt="TC"></p>
+<h5 id="XTS-tweakable-block-ciphers"><a href="#XTS-tweakable-block-ciphers" class="headerlink" title="XTS tweakable block ciphers"></a>XTS tweakable block ciphers</h5><p><img src="/assets/mdPic/xts.png" alt="XTS"></p>
+<h3 id="保格式加密-Format-Preserving-Encryption"><a href="#保格式加密-Format-Preserving-Encryption" class="headerlink" title="保格式加密(Format Preserving Encryption)"></a>保格式加密(Format Preserving Encryption)</h3><p>常用于<code>加密信用卡</code>，也就是加密后的密文看上去还是信用卡格式<br>具体加密算法，后续进一步学习（<strong>学累了</strong>）<br><img src="/assets/mdPic/fpe1.png" alt="FPE"><br><img src="/assets/mdPic/fpe2.png" alt="FPE"></p>
+<h2 id="密钥交换-Basic-key-exchange"><a href="#密钥交换-Basic-key-exchange" class="headerlink" title="密钥交换(Basic key exchange)"></a>密钥交换(Basic key exchange)</h2><p>在线可信任三方(Online Trusted $3^{rd}$ Party TTP)：每个用户可与可信任第三方共享一个单独的密钥</p>
+<h3 id="初级协议-a-toy-protocol"><a href="#初级协议-a-toy-protocol" class="headerlink" title="初级协议(a toy protocol)"></a>初级协议(a toy protocol)</h3><ul>
+<li><p>对于监听是安全的</p>
+</li>
+<li><p>A与B想通信，首先A让TTP知道这个意图，然后TTP生成共享密钥，发送用A的密钥$K_A$加密的信息和ticket给A，然后A将$ticket$给B，双方用自己的密钥解密之后得到共享密钥</p>
+</li>
+<li><p>TTP需要参与到每个密钥交换，也知道所有的会话密钥<br><img src="/assets/mdPic/atp.png"></p>
+</li>
+<li><p>在主动攻击下不安全，<code>重放攻击</code></p>
+</li>
+</ul>
+<h3 id="不需要TTP的情况下交换密钥"><a href="#不需要TTP的情况下交换密钥" class="headerlink" title="不需要TTP的情况下交换密钥"></a>不需要TTP的情况下交换密钥</h3><p>不需要<em>TTP</em>参与的方法：<br><code>公钥密码学</code>：<em>Merkle(1974)，Diffie-Hellman(1976)，RSA(1977)，ID-base enc.(BF2001)基于身份的加密，Functional enc.(2011)泛函加密</em></p>
+<p>使用对称密码的方法：</p>
+<h4 id="Merkle-Puzzles"><a href="#Merkle-Puzzles" class="headerlink" title="Merkle Puzzles"></a>Merkle Puzzles</h4><p><code>Alice</code></p>
+<ul>
+<li>首先Alice需要准备n个密钥，每个密钥只有n位有效，具体就是生成n个$p_i \in {0,1}^{n}$，这样就有n个密钥$(0^{128-n}||pi)$</li>
+<li>$x_i,k_i \in {0,1}^{128}$，Alice 开始生成Puzzle，具体是$Puzzle←E(0^{128-n}||p_i,”Puzzle#x_i”||k_i)$</li>
+<li>将生成的Puzzle发送给Bob</li>
+</ul>
+<p><code>Bob</code></p>
+<ul>
+<li>收到n条Alice发送的Puzzle之后，随机选一条，用$O(n)$的时间去解密Puzzle，得到$(x_i,k_i)$，保存好$k_i$</li>
+<li>发送$x_i$给Alice</li>
+</ul>
+<p><code>Alice</code></p>
+<ul>
+<li>收到Bob的$x_i$之后，查Puzzle数据库，找到对应的$k_i$，这就是它们共享的密钥。</li>
+</ul>
+<p><code>Attacker</code></p>
+<ul>
+<li>窃听者想要获取共享密钥需要从n个Puzzle里面用$O(n)$的时间去解密，所以花费的时间是$O(n^{2})$，所以Alice需要发送n=64以上才是安全的，这也是这个方法最不实用的地方。<br>参与者与攻击者之间有<code>quadratic gap（平方鸿沟）</code>，这基本上是对称密码能做到最好的成绩了，也由此开始了公钥密码<br><img src="/assets/mdPic/puz.png" alt="Merkle Puzzle"></li>
+</ul>
+<h3 id="The-Diffie-Hellman-protocol"><a href="#The-Diffie-Hellman-protocol" class="headerlink" title="The Diffie-Hellman protocol"></a>The Diffie-Hellman protocol</h3>
                 
             </div>
             <hr/>
