@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-03
+                    2021-11-04
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.7k
+                    4.9k
                 </div>
                 
 
@@ -766,7 +766,11 @@
 <ul>
 <li>窃听者想要获取共享密钥需要从n个Puzzle里面用$O(n)$的时间去解密，所以花费的时间是$O(n^{2})$，所以Alice需要发送n=64以上才是安全的，这也是这个方法最不实用的地方。<br>参与者与攻击者之间有<code>quadratic gap（平方鸿沟）</code>，这基本上是对称密码能做到最好的成绩了，也由此开始了公钥密码<br><img src="/assets/mdPic/puz.png" alt="Merkle Puzzle"></li>
 </ul>
-<h3 id="The-Diffie-Hellman-protocol"><a href="#The-Diffie-Hellman-protocol" class="headerlink" title="The Diffie-Hellman protocol"></a>The Diffie-Hellman protocol</h3>
+<h3 id="The-Diffie-Hellman-protocol"><a href="#The-Diffie-Hellman-protocol" class="headerlink" title="The Diffie-Hellman protocol"></a>The Diffie-Hellman protocol</h3><p><img src="/assets/mdPic/dh.png" alt="Diffie-Hellman(参考图解密码技术)"></p>
+<h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><p>攻击者能够得到的参数有：$p,g,A=g^{a}(mod p),B=g^{b}(mod p)$<br>双方的共享密钥是：$g^{ab}$<br>所以攻击者能够在得到的参数里面解出$g^{ab}$吗，也就是找到一个函数$DH_g(g^{a},g^{b})=g^{ab}$<br>目前最好的一个算法计算Diffie-Hellman函数的是的是<code>GNFS(普通数域筛法)</code>耗时大约是$e^{O(\sqrt[3]n)}$ </p>
+<h5 id="中间人攻击"><a href="#中间人攻击" class="headerlink" title="中间人攻击"></a>中间人攻击</h5><p><img src="/assets/mdPic/mm.png" alt="中间人攻击"></p>
+<h4 id="非互动建立"><a href="#非互动建立" class="headerlink" title="非互动建立"></a>非互动建立</h4><p>双方(n=2)建立通信不用互相通信，每个人只需要把自己的$g^i$暴露出来，只要两个人$i,j$想通信就可以计算出它们的共享密钥$g^{ij}$<br>也就是想要达到非互动建立<br>n=2，DH协议可以实现<br>n=3,已知协议khown,由Joux提出<br>n=4，开放问题，未解决</p>
+
                 
             </div>
             <hr/>
