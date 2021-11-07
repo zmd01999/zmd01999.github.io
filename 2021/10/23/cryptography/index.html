@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-06
+                    2021-11-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5k
+                    5.5k
                 </div>
                 
 
@@ -783,9 +783,52 @@
 </ul>
 <h3 id="模二次方程-Modular-e’th-roots"><a href="#模二次方程-Modular-e’th-roots" class="headerlink" title="模二次方程(Modular e’th roots)"></a>模二次方程(Modular e’th roots)</h3><p>e与p-1互质时，e次方根总是存在的<br><img src="/assets/mdPic/easyc.png" alt="简单的情况"><br>计算奇质数模的平方根会有二次剩余，1是二次剩余</p>
 <ul>
-<li>二次剩余<br><img src="/assets/mdPic/er.png" alt="欧拉提出"></li>
-<li>计算质数模的平方根<br><img src="/assets/mdPic/cpu.png"></li>
+<li><p>二次剩余<br><img src="/assets/mdPic/er.png" alt="欧拉提出"></p>
+</li>
+<li><p>计算质数模的平方根<br><img src="/assets/mdPic/cpu.png"></p>
+</li>
+<li><p><code>Karatsuba</code>算法减少了乘法需要的时间</p>
+</li>
+<li><p>重复平方算法</p>
+</li>
 </ul>
+<h3 id="困难问题"><a href="#困难问题" class="headerlink" title="困难问题"></a>困难问题</h3><p>这些数论里面的难题可以应用到密码学里面，这样就没法破解了</p>
+<ul>
+<li>离散对数问题，由此衍生的密码算法（<code>Diffie-Hellman</code>,<code>椭圆曲线</code>）,抗碰撞也是其应用</li>
+<li>合数分解成质因数<br><img src="/assets/mdPic/amc.png" alt="合数模的一些性质"></li>
+</ul>
+<h2 id="公钥加密-Public-key-encryption"><a href="#公钥加密-Public-key-encryption" class="headerlink" title="公钥加密(Public key encryption)"></a>公钥加密(Public key encryption)</h2><ul>
+<li><code>选择密文安全 CCA(Chosen ciphertext security)</code>:攻击者有能力解密任何它想解密的密文（挑战密文除外），它依然不能学到挑战密文是什么</li>
+</ul>
+<h3 id="CCA安全的公钥系统"><a href="#CCA安全的公钥系统" class="headerlink" title="CCA安全的公钥系统"></a>CCA安全的公钥系统</h3><h4 id="陷门置换-Trapdoor-permutation"><a href="#陷门置换-Trapdoor-permutation" class="headerlink" title="陷门置换(Trapdoor permutation)"></a>陷门置换(Trapdoor permutation)</h4><ul>
+<li><p>陷门置换与陷门函数区别<br>前者（x→x）包括陷门函数（x→y），体现就是$F()$与$F^{-1}()$，陷门置换还包括密钥生成G()</p>
+</li>
+<li><p><code>Trapdoor function(TDF)</code><br><img src="/assets/mdPic/tdf.png" alt="TDF"></p>
+<blockquote>
+<p>安全的陷门函数是攻击者求不出F函数的逆，也就是正向计算这个函数容易，但不能从反方向计算(除非有私钥SK)</p>
+</blockquote>
+</li>
+<li><p>基于TDF的公钥系统（ISO标准）<br>公钥系统中TDF负责映射随机值x，而认证加密用于明文，其中认证加密的密钥是由x哈希后产生的，然后将TDF将x加密传输。</p>
+<blockquote>
+<p>只要H()是随机的，对称加密机制提供了认证加密，陷门置换是安全的，那么称这个系统是CCA安全的</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/assets/mdPic/tdfs.png" alt="基于TDF的公钥加密"></p>
+<blockquote>
+<p>不要使用TDF直接加密明文，这是不安全的。</p>
+</blockquote>
+<h4 id="RSA-经典的TDF"><a href="#RSA-经典的TDF" class="headerlink" title="RSA(经典的TDF)"></a>RSA(经典的TDF)</h4><p>被广泛应用在SSL/TLS，邮件，文件系统等<br>密钥生成算法G()：</p>
+<ul>
+<li>随机生成两个质数p，q，每个大约1000位，RSA模N=pq；</li>
+<li>选择两个数e，d，且e·d=1(mod $\Phi (N) $)，这就意味这它们都需要和$\Phi (N) $互质，且互为$\Phi (N) $的逆</li>
+<li>输出公钥pk=(N,e)，私钥sk=(N,d)<blockquote>
+<p>e：加密指数；d：解密指数</p>
+</blockquote>
+</li>
+</ul>
+<p>RSA函数本身：<br><img src="/assets/mdPic/rsa.png" alt="RSA"></p>
+<p>Textbook RSA是不安全的，也就是直接使用RSA加密明文是不安全的(为什么称为Textbook RSA，因为很多教科书就是这样使用的。。。。<em>整个无语住了</em>)<br><img src="/assets/mdPic/atrsa.png" alt="对TestbookRSA的攻击"></p>
 
                 
             </div>
