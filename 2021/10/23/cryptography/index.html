@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-07
+                    2021-11-08
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.5k
+                    5.6k
                 </div>
                 
 
@@ -800,7 +800,7 @@
 <h2 id="公钥加密-Public-key-encryption"><a href="#公钥加密-Public-key-encryption" class="headerlink" title="公钥加密(Public key encryption)"></a>公钥加密(Public key encryption)</h2><ul>
 <li><code>选择密文安全 CCA(Chosen ciphertext security)</code>:攻击者有能力解密任何它想解密的密文（挑战密文除外），它依然不能学到挑战密文是什么</li>
 </ul>
-<h3 id="CCA安全的公钥系统"><a href="#CCA安全的公钥系统" class="headerlink" title="CCA安全的公钥系统"></a>CCA安全的公钥系统</h3><h4 id="陷门置换-Trapdoor-permutation"><a href="#陷门置换-Trapdoor-permutation" class="headerlink" title="陷门置换(Trapdoor permutation)"></a>陷门置换(Trapdoor permutation)</h4><ul>
+<h3 id="陷门置换-Trapdoor-permutation"><a href="#陷门置换-Trapdoor-permutation" class="headerlink" title="陷门置换(Trapdoor permutation)"></a>陷门置换(Trapdoor permutation)</h3><ul>
 <li><p>陷门置换与陷门函数区别<br>前者（x→x）包括陷门函数（x→y），体现就是$F()$与$F^{-1}()$，陷门置换还包括密钥生成G()</p>
 </li>
 <li><p><code>Trapdoor function(TDF)</code><br><img src="/assets/mdPic/tdf.png" alt="TDF"></p>
@@ -818,7 +818,7 @@
 <blockquote>
 <p>不要使用TDF直接加密明文，这是不安全的。</p>
 </blockquote>
-<h4 id="RSA-经典的TDF"><a href="#RSA-经典的TDF" class="headerlink" title="RSA(经典的TDF)"></a>RSA(经典的TDF)</h4><p>被广泛应用在SSL/TLS，邮件，文件系统等<br>密钥生成算法G()：</p>
+<h3 id="RSA-经典的TDF"><a href="#RSA-经典的TDF" class="headerlink" title="RSA(经典的TDF)"></a>RSA(经典的TDF)</h3><p>被广泛应用在SSL/TLS，邮件，文件系统等<br>密钥生成算法G()：</p>
 <ul>
 <li>随机生成两个质数p，q，每个大约1000位，RSA模N=pq；</li>
 <li>选择两个数e，d，且e·d=1(mod $\Phi (N) $)，这就意味这它们都需要和$\Phi (N) $互质，且互为$\Phi (N) $的逆</li>
@@ -829,6 +829,13 @@
 </ul>
 <p>RSA函数本身：<br><img src="/assets/mdPic/rsa.png" alt="RSA"></p>
 <p>Textbook RSA是不安全的，也就是直接使用RSA加密明文是不安全的(为什么称为Textbook RSA，因为很多教科书就是这样使用的。。。。<em>整个无语住了</em>)<br><img src="/assets/mdPic/atrsa.png" alt="对TestbookRSA的攻击"></p>
+<h3 id="公钥密码学一号标准-PKCS1"><a href="#公钥密码学一号标准-PKCS1" class="headerlink" title="公钥密码学一号标准(PKCS1)"></a>公钥密码学一号标准(PKCS1)</h3><blockquote>
+<p>PKCS1全称：Public Key Cryptography standard number one</p>
+</blockquote>
+<h3 id="RSA的安全性"><a href="#RSA的安全性" class="headerlink" title="RSA的安全性"></a>RSA的安全性</h3><p>它真的是一个单向函数吗？</p>
+<ul>
+<li>中国剩余定理 </li>
+</ul>
 
                 
             </div>
