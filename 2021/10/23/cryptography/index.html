@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="密码学初学, 记录我的烟酒僧生活">
+    <meta name="keywords" content="密码学初学, 我的烟酒僧生活">
     <meta name="description" content="
 研0阶段，本科SE专业没有密码学相关基础，所以借着这些空闲时间补一补
 
@@ -20,7 +20,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>密码学初学 | 记录我的烟酒僧生活</title>
+    <title>密码学初学 | 我的烟酒僧生活</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -47,7 +47,7 @@
                     
                     <img src="/medias/logo.png" class="logo-img" alt="LOGO">
                     
-                    <span class="logo-span">记录我的烟酒僧生活</span>
+                    <span class="logo-span">我的烟酒僧生活</span>
                 </a>
             </div>
             
@@ -135,7 +135,7 @@
         
         <img src="/medias/logo.png" class="logo-img circle responsive-img">
         
-        <div class="logo-name">记录我的烟酒僧生活</div>
+        <div class="logo-name">我的烟酒僧生活</div>
         <div class="logo-desc">
             
             缓缓的枫叶飘落像思念
@@ -456,14 +456,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-08
+                    2021-11-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    5.6k
+                    6k
                 </div>
                 
 
@@ -832,10 +832,27 @@
 <h3 id="公钥密码学一号标准-PKCS1"><a href="#公钥密码学一号标准-PKCS1" class="headerlink" title="公钥密码学一号标准(PKCS1)"></a>公钥密码学一号标准(PKCS1)</h3><blockquote>
 <p>PKCS1全称：Public Key Cryptography standard number one</p>
 </blockquote>
+<p>在ISO标准中是随机生成x，RSA加密x，然后推出对称加密密钥。<strong>实际中是系统生成一个对称加密密钥，然后RSA加密这个密钥</strong><br><img src="/assets/mdPic/prsa.png" alt="RSA in practice"><br>这个预处理过程是什么？广泛应用的就是<code>PKCS1 v1.5</code> </p>
+<p>模式1：签名；模式2：加密<br><img src="/assets/mdPic/pkcs.png" alt="PKCS1mode2"></p>
+<p>其工作流程：假设明文msg是128位的AES密钥，需要把他放在最低的128位，然后在高位附上16个1也就是16进制的FF，它们都在随机密码本后面，这个密码不任何地方都<strong>不含</strong>FF（类似1900位不含FF的随机数），在最高位放02，表示这个明文被PKCS1模式2编码了。整个就是2048位，作为RSA函数的输入（计算它的e次方模N得到的就是PKCS1的密文）。<br>当解密者要求RSA的逆来还原这个分组时，看最高位发现是02就会移除它以及随机密码本，直到遇见FF，剩下的就是密钥。</p>
+<blockquote>
+<p>在HTTPS中广泛使用</p>
+</blockquote>
+<h4 id="对PKCS1-v1-5的攻击"><a href="#对PKCS1-v1-5的攻击" class="headerlink" title="对PKCS1 v1.5的攻击"></a>对PKCS1 v1.5的攻击</h4><ul>
+<li><code>Bleichenbacher</code>在1998年提出<br>网页服务器会对高16位判断是否是02，如果不是那么返回错误，攻击者利用这一点不断试错(上百万次)，可以得到明文。也就是可以乘$r^e$来使密文不断左移，每次得到16位的明文<br><img src="/assets/mdPic/attpk.png" alt="针对PKCS1的攻击"><br><img src="/assets/mdPic/attpk2.png" alt="针对PKCS1的攻击细节"></li>
+</ul>
+<blockquote>
+<p>应对这种攻击的方法：高位判断错误，不返回错误消息，而是最后和正常情况一样返回一个明文（当然这个明文是随机的R），最后通信时密钥不相同而会话中止</p>
+</blockquote>
 <h3 id="RSA的安全性"><a href="#RSA的安全性" class="headerlink" title="RSA的安全性"></a>RSA的安全性</h3><p>它真的是一个单向函数吗？</p>
 <ul>
-<li>中国剩余定理 </li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/44591114?ivk_sa=1024320u">中国剩余定理</a></li>
 </ul>
+<h3 id="RSA的应用"><a href="#RSA的应用" class="headerlink" title="RSA的应用"></a>RSA的应用</h3><p>使用比较小$e$达到提速效果，$e_{min}=3$<br>RSA的加密比解密快<br><img src="/assets/mdPic/lp.png"></p>
+<ul>
+<li>对于RSA的相关攻击<br><img src="/assets/mdPic/attrsa.png" alt="针对RSA的攻击"><br>·计时攻击<br>·功耗攻击<br>·错误攻击<br><img src="/assets/mdPic/fa.png" alt="错误攻击"></li>
+</ul>
+<p><img src="/assets/mdPic/rkg.png" alt="熵不够时的问题"></p>
 
                 
             </div>
