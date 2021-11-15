@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>algorithm</title>
+      <title>日复一日</title>
       <link href="/2021/11/15/algorithm/"/>
       <url>/2021/11/15/algorithm/</url>
       
         <content type="html"><![CDATA[]]></content>
       
       
+      <categories>
+          
+          <category> 算法 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 刷题 </tag>
+            
+        </tags>
       
     </entry>
     
