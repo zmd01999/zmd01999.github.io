@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="日复一日, 我的烟酒僧生活">
-    <meta name="description" content="刷题路漫漫">
+    <meta name="keywords" content="JAVA&#34;轶事&#34;, 我的烟酒僧生活">
+    <meta name="description" content="学习过程中遇到的积累">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>日复一日 | 我的烟酒僧生活</title>
+    <title>JAVA&#34;轶事&#34; | 我的烟酒僧生活</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -305,7 +305,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">日复一日</h1>
+                    <h1 class="description center-align post-title">JAVA&#34;轶事&#34;</h1>
                 </div>
             </div>
         </div>
@@ -421,8 +421,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%88%B7%E9%A2%98/">
-                                <span class="chip bg-color">刷题</span>
+                            <a href="/tags/JAVA/">
+                                <span class="chip bg-color">JAVA</span>
                             </a>
                         
                     </div>
@@ -433,8 +433,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
-                                算法
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                软件工程
                             </a>
                         
                     </div>
@@ -446,7 +446,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-15
+                    2021-11-23
                 </div>
                 
 
@@ -460,7 +460,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    507
+                    26
                 </div>
                 
 
@@ -487,79 +487,13 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="旋转数组"><a href="#旋转数组" class="headerlink" title="旋转数组"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/rotate-array/">旋转数组</a></h4><blockquote>
-<p>给你一个数组，将数组中的元素向右轮转 k 个位置，其中 k 是非负数</p>
-</blockquote>
-<ul>
-<li>解法1：时间$O(n)$,空间$O(n)$</li>
-</ul>
-<pre class=" language-Java"><code class="language-Java">class Solution &#123;
-    public void rotate(int[] nums, int k) &#123;
-        int len = nums.length;
-        int[] flag = new int[len];
-        int sum = 0, start = 0;
-        int pre = nums[start];
-        while(sum != len) &#123;
-                int nindex = (start + k) % len;
-                int next = nums[nindex];
-                if(flag[nindex] == 0)&#123;
-                    nums[nindex] = pre;
-                    pre = next;
-                    start = nindex;
-                    flag[nindex] = 1;
-                    sum++;
-                &#125; else&#123;
-                    start = (start + 1) % len;
-                    pre = nums[start];
-                &#125;
-        &#125;
-    &#125;
-&#125; 
+                <h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
+<li>getOrDefault()<pre class=" language-java"><code class="language-java">      <span class="token comment" spellcheck="true">// Not Found - 如果 HashMap 中没有该 key，则返回默认值</span>
+      String value1 <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Not Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<ul>
-<li>解法2：时间$O(n)$,空间$O(1)$,对于解法1的优化在于没有额外开数组记录是否此元素已经循环过，而是采取数学证明提前将是否会导致循环的情况计算出来，具体就是判断会不会一个环遍历到所有元素（如果数组长度为6，k为4，此时从数组下标0开始替换，替换3次时会回到下标0处，而此时还未遍历完所有元素，3次是由4和6的最小公倍数12/4得到的，所以会形成6/3=2个环）</li>
+</li>
+<li> containsKey()</li>
 </ul>
-<pre class=" language-Java"><code class="language-Java">class Solution &#123;
-    public void rotate(int[] nums, int k) &#123;
-        if(nums.length == 1 || k == 0) return ;
-        int len = nums.length;
-        int sum = 0, start = 0;
-        int pre = nums[0];
-        int flag = gcd(k,len) != 1 ? len / gcd(k,len) : 0;
-
-        while(sum != len) &#123;       
-                if(flag != 0 && sum % flag == 0)&#123;
-                    start = (start + 1) % len;
-                    pre = nums[start];
-                &#125;
-                int nindex = (start + k) % len;
-                int next = nums[nindex];
-                nums[nindex] = pre;
-                pre = next;
-                start = nindex;
-                sum++; 
-            &#125;
-    &#125;
-    int gcd(int m,int n)&#123;
-        if(n == 0)&#123;
-        return m; &#125;
-        int r = m%n;
-        return gcd(n,r);
-    &#125;
-&#125;
-</code></pre>
-<h4 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">只出现一次的数字</a></h4><blockquote>
-<p>异或满足交换律，相同的两个数异或为0，最后只剩出现一次的数字</p>
-</blockquote>
-<h4 id="加一"><a href="#加一" class="headerlink" title="加一"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/plus-one/">加一</a></h4><blockquote>
-<p>单单是加一就比较简单，可以扩展为加10等</p>
-</blockquote>
-<h4 id="移动零"><a href="#移动零" class="headerlink" title="移动零"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/move-zeroes/">移动零</a></h4><blockquote>
-<p>双指针，慢指针左边全是非零数，快指针到慢指针部分全为0</p>
-</blockquote>
-<h4 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/two-sum/">两数之和</a></h4><blockquote>
-<p>哈希表可以解决时间复杂度$O(n)$，可以优化的是转到hashmap的过程和判断是否有另一个数存在可以在同一个for循环</p>
-</blockquote>
 
                 
             </div>
@@ -586,7 +520,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zmd01999.github.io/2021/11/15/algorithm/">http://zmd01999.github.io/2021/11/15/algorithm/</a>
+                    <a href="http://zmd01999.github.io/2021/11/23/java/">http://zmd01999.github.io/2021/11/23/java/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -624,8 +558,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%88%B7%E9%A2%98/">
-                                    <span class="chip bg-color">刷题</span>
+                                <a href="/tags/JAVA/">
+                                    <span class="chip bg-color">JAVA</span>
                                 </a>
                             
                         </div>
@@ -937,9 +871,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2021/11/23/java/">
                     <div class="card-image">
@@ -957,9 +892,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-23
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-23
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -972,6 +907,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -990,31 +926,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/11/14/fund/">
+                <a href="/2021/11/15/algorithm/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="在梦中一夜暴富">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="日复一日">
                         
-                        <span class="card-title">在梦中一夜暴富</span>
+                        <span class="card-title">日复一日</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            生存技能++
+                            刷题路漫漫
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-15
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%90%86%E8%B4%A2/" class="post-category">
-                                    理财
+                            <a href="/categories/%E7%AE%97%E6%B3%95/" class="post-category">
+                                    算法
                                 </a>
                             
                             
@@ -1024,8 +960,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9F%BA%E9%87%91/">
-                        <span class="chip bg-color">基金</span>
+                    <a href="/tags/%E5%88%B7%E9%A2%98/">
+                        <span class="chip bg-color">刷题</span>
                     </a>
                     
                 </div>
@@ -1156,13 +1092,6 @@
 
 </main>
 
-
-<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script>
-    MathJax.Hub.Config({
-        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
-    });
-</script>
 
 
 
