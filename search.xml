@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Web安全</title>
+      <link href="/2021/11/24/websec/"/>
+      <url>/2021/11/24/websec/</url>
+      
+        <content type="html"><![CDATA[<h3 id="WEB安全"><a href="#WEB安全" class="headerlink" title="WEB安全"></a>WEB安全</h3><h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h4><h4 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h4><h4 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h4>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网络空间安全 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 攻防 </tag>
+            
+            <tag> CTF </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JAVA&quot;轶事&quot;</title>
       <link href="/2021/11/23/java/"/>
       <url>/2021/11/23/java/</url>

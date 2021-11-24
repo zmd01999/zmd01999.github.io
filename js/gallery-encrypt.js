@@ -105,6 +105,9 @@ function htmlDecode(str) {
   s = s.replace(/'/g, '\'');
   s = s.replace(/&quot;/g, '"');
   s = s.replace(/<br>/g, '\n');
+  // s = s.replace(/@#123/g, '{');
+  // s = s.replace(/@#125/g, '}');
+
   return s;
 
 }
