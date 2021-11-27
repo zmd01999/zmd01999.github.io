@@ -457,14 +457,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-24
+                    2021-11-27
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3
+                    206
                 </div>
                 
 
@@ -491,7 +491,23 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="WEB安全"><a href="#WEB安全" class="headerlink" title="WEB安全"></a>WEB安全</h3><h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h4><h4 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h4><h4 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h4>
+                <h3 id="WEB安全"><a href="#WEB安全" class="headerlink" title="WEB安全"></a>WEB安全</h3><h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h4><p>Cross Site Scripting 跨站脚本攻击:是指恶意攻击者往Web页面里插入恶意Script代码，当用户浏览该页之时，嵌入其中Web里面的Script代码会被执行，从而达到恶意攻击用户的目的</p>
+<ul>
+<li>反射型<br>攻击者事先制作好攻击链接, 需要欺骗用户自己去点击链接才能触发XSS代码（服务器中没有这样的页面和内容），一般容易出现在搜索页面,如盗取cookie<pre class=" language-php"><code class="language-php"><span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><span class="token punctuation">"</span></span> <span class="token attr-name">method</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>get<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span> 
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>input<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span>     
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>submit<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></span> 
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span></span> 
+<span class="token markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">></span></span></span> 
+<span class="token delimiter">&lt;?php</span> 
+<span class="token variable">$XssReflex</span> <span class="token operator">=</span> <span class="token variable">$_GET</span><span class="token punctuation">[</span><span class="token string">'input'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">echo</span> <span class="token string">'output:&lt;br>'</span><span class="token punctuation">.</span><span class="token variable">$XssReflex</span><span class="token punctuation">;</span>
+<span class="token delimiter">?></span> 
+</code></pre>
+</li>
+<li>存储型<br>先把利用代码保存在比如数据库或文件中，当web程序读取利用代码时再输出在页面上执行利用代码。</li>
+<li>DOM型</li>
+</ul>
+<h4 id="CSRF"><a href="#CSRF" class="headerlink" title="CSRF"></a>CSRF</h4><h4 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h4>
                 
             </div>
             <hr/>
