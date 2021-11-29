@@ -330,7 +330,14 @@
 
 <script>
     // 每天切换 banner 图.  Switch banner image every day.
-    var bannerUrl = "/medias/banner/" + new Date().getDay() + '.jpg';
+    var date = new Date().getDay();
+    if(date == 1){
+        date = 7;
+    }
+    if(date == 6){
+        date = 8;
+    }
+    var bannerUrl = "/medias/banner/" + date + '.jpg';
     $('.bg-cover').css('background-image', 'url(' + bannerUrl + ')');
 </script>
 
