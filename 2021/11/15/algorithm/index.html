@@ -453,14 +453,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-28
+                    2021-11-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    604
+                    584
                 </div>
                 
 
@@ -496,60 +496,60 @@
 <ul>
 <li>解法1：时间$O(n)$,空间$O(n)$</li>
 </ul>
-<pre class=" language-Java"><code class="language-Java">class Solution &#123;
-    public void rotate(int[] nums, int k) &#123;
-        int len = nums.length;
-        int[] flag = new int[len];
-        int sum = 0, start = 0;
-        int pre = nums[start];
-        while(sum != len) &#123;
-                int nindex = (start + k) % len;
-                int next = nums[nindex];
-                if(flag[nindex] == 0)&#123;
-                    nums[nindex] = pre;
-                    pre = next;
-                    start = nindex;
-                    flag[nindex] = 1;
-                    sum++;
-                &#125; else&#123;
-                    start = (start + 1) % len;
-                    pre = nums[start];
-                &#125;
-        &#125;
-    &#125;
-&#125; 
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rotate</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> flag <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>len<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> pre <span class="token operator">=</span> nums<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>sum <span class="token operator">!=</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> nindex <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> k<span class="token punctuation">)</span> <span class="token operator">%</span> len<span class="token punctuation">;</span>
+                <span class="token keyword">int</span> next <span class="token operator">=</span> nums<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token keyword">if</span><span class="token punctuation">(</span>flag<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    nums<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span> <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+                    pre <span class="token operator">=</span> next<span class="token punctuation">;</span>
+                    start <span class="token operator">=</span> nindex<span class="token punctuation">;</span>
+                    flag<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                    sum<span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span><span class="token punctuation">{</span>
+                    start <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> len<span class="token punctuation">;</span>
+                    pre <span class="token operator">=</span> nums<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span> 
 </code></pre>
 <ul>
 <li>解法2：时间$O(n)$,空间$O(1)$,对于解法1的优化在于没有额外开数组记录是否此元素已经循环过，而是采取数学证明提前将是否会导致循环的情况计算出来，具体就是判断会不会一个环遍历到所有元素（如果数组长度为6，k为4，此时从数组下标0开始替换，替换3次时会回到下标0处，而此时还未遍历完所有元素，3次是由4和6的最小公倍数12/4得到的，所以会形成6/3=2个环）</li>
 </ul>
-<pre class=" language-Java"><code class="language-Java">class Solution &#123;
-    public void rotate(int[] nums, int k) &#123;
-        if(nums.length == 1 || k == 0) return ;
-        int len = nums.length;
-        int sum = 0, start = 0;
-        int pre = nums[0];
-        int flag = gcd(k,len) != 1 ? len / gcd(k,len) : 0;
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">rotate</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">1</span> <span class="token operator">||</span> k <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token punctuation">;</span>
+        <span class="token keyword">int</span> len <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> pre <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> flag <span class="token operator">=</span> <span class="token function">gcd</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span>len<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">1</span> <span class="token operator">?</span> len <span class="token operator">/</span> <span class="token function">gcd</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span>len<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
-        while(sum != len) &#123;       
-                if(flag != 0 && sum % flag == 0)&#123;
-                    start = (start + 1) % len;
-                    pre = nums[start];
-                &#125;
-                int nindex = (start + k) % len;
-                int next = nums[nindex];
-                nums[nindex] = pre;
-                pre = next;
-                start = nindex;
-                sum++; 
-            &#125;
-    &#125;
-    int gcd(int m,int n)&#123;
-        if(n == 0)&#123;
-        return m; &#125;
-        int r = m%n;
-        return gcd(n,r);
-    &#125;
-&#125;
+        <span class="token keyword">while</span><span class="token punctuation">(</span>sum <span class="token operator">!=</span> len<span class="token punctuation">)</span> <span class="token punctuation">{</span>       
+                <span class="token keyword">if</span><span class="token punctuation">(</span>flag <span class="token operator">!=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> sum <span class="token operator">%</span> flag <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    start <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">%</span> len<span class="token punctuation">;</span>
+                    pre <span class="token operator">=</span> nums<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">int</span> nindex <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> k<span class="token punctuation">)</span> <span class="token operator">%</span> len<span class="token punctuation">;</span>
+                <span class="token keyword">int</span> next <span class="token operator">=</span> nums<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                nums<span class="token punctuation">[</span>nindex<span class="token punctuation">]</span> <span class="token operator">=</span> pre<span class="token punctuation">;</span>
+                pre <span class="token operator">=</span> next<span class="token punctuation">;</span>
+                start <span class="token operator">=</span> nindex<span class="token punctuation">;</span>
+                sum<span class="token operator">++</span><span class="token punctuation">;</span> 
+            <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> <span class="token function">gcd</span><span class="token punctuation">(</span><span class="token keyword">int</span> m<span class="token punctuation">,</span><span class="token keyword">int</span> n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>n <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> m<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> r <span class="token operator">=</span> m<span class="token operator">%</span>n<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">gcd</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>r<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 <h4 id="只出现一次的数字"><a href="#只出现一次的数字" class="headerlink" title="只出现一次的数字"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/single-number/">只出现一次的数字</a></h4><blockquote>
 <p>异或满足交换律，相同的两个数异或为0，最后只剩出现一次的数字</p>
@@ -1058,8 +1058,6 @@
 
 
 <!-- 代码块复制 -->
-
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
 
 
 <!-- 代码块收缩 -->

@@ -453,14 +453,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-11-23
+                    2021-11-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    26
+                    333
                 </div>
                 
 
@@ -488,11 +488,42 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h3><ul>
-<li>getOrDefault()<pre class=" language-java"><code class="language-java">      <span class="token comment" spellcheck="true">// Not Found - 如果 HashMap 中没有该 key，则返回默认值</span>
-      String value1 <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Not Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>getOrDefault()</li>
+</ul>
+<pre class=" language-java"><code class="language-java">        <span class="token comment" spellcheck="true">// Not Found - 如果 HashMap 中没有该 key，则返回默认值</span>
+        String value1 <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Not Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-</li>
+<ul>
 <li> containsKey()</li>
+</ul>
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
+<li>indexOf(String s)<br>返回参数字符串s在指定字符串中首次出现的索引位置,如没有返回-1,时间复杂度$O(m×n)$</li>
+</ul>
+<pre class=" language-java"><code class="language-java">        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> sourceOffset <span class="token operator">+</span> fromIndex<span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> max<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">/* Look for first character. */</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>source<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> first<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token operator">++</span>i <span class="token operator">&lt;=</span> max <span class="token operator">&amp;&amp;</span> source<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> first<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token comment" spellcheck="true">/* Found first character, now look at the rest of v2 */</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;=</span> max<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> j <span class="token operator">=</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> end <span class="token operator">=</span> j <span class="token operator">+</span> targetCount <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+                <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> k <span class="token operator">=</span> targetOffset <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span> j <span class="token operator">&lt;</span> end <span class="token operator">&amp;&amp;</span> source<span class="token punctuation">[</span>j<span class="token punctuation">]</span>
+                        <span class="token operator">==</span> target<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">;</span> j<span class="token operator">++</span><span class="token punctuation">,</span> k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>j <span class="token operator">==</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token comment" spellcheck="true">/* Found whole string. */</span>
+                    <span class="token keyword">return</span> i <span class="token operator">-</span> sourceOffset<span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+</code></pre>
+<blockquote>
+<p>为什么JDK不使用KMP等接近$O(n)$的算法呢？<br>JDK的编写者们认为大多数情况下，字符串都不长，使用原始实现可能代价更低。因为KMP和Boyer-Moore算法都需要预先计算处理来获得辅助数组，需要一定的时间和空间，这可能在短字符串查找中相比较原始实现耗费更大的代价。而且一般大字符串查找时，程序员们也会使用其它特定的数据结构，查找起来更简单。这有点类似于排除特定情况下的快速排序了。不同环境选择不同算法。</p>
+</blockquote>
+<ul>
+<li>lastIndexOf(String s)<br>用于返回字符串最后一次出现的索引位置</li>
 </ul>
 
                 
@@ -988,8 +1019,6 @@
 
 <!-- 代码块复制 -->
 
-<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
-
 
 <!-- 代码块收缩 -->
 
@@ -1094,6 +1123,13 @@
 
 </main>
 
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script>
+    MathJax.Hub.Config({
+        tex2jax: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    });
+</script>
 
 
 
