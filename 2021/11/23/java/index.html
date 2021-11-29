@@ -460,7 +460,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    333
+                    427
                 </div>
                 
 
@@ -496,6 +496,10 @@
 <ul>
 <li> containsKey()</li>
 </ul>
+<h4 id="HashMap与LinkedHashMap的异同"><a href="#HashMap与LinkedHashMap的异同" class="headerlink" title="HashMap与LinkedHashMap的异同"></a>HashMap与LinkedHashMap的异同</h4><p>主要区别就是HashMap是无序的，也就是输入顺序和输出顺序不同，而LinkedHashMap是保持一致的</p>
+<blockquote>
+<p>原理：<br>HashMap存储顺序是由HashCode决定的，所以不能满足有序，而LinkedHashMap底层借助哈希桶+双向链表，就是在hashmap的基础上通过双向链表维护元素节点间的顺序</p>
+</blockquote>
 <h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ul>
 <li>indexOf(String s)<br>返回参数字符串s在指定字符串中首次出现的索引位置,如没有返回-1,时间复杂度$O(m×n)$</li>
 </ul>
