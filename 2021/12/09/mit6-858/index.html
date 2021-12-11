@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-10
+                    2021-12-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3
+                    23
                 </div>
                 
 
@@ -493,7 +493,8 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2>
+                <h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2><h3 id="Threat-model"><a href="#Threat-model" class="headerlink" title="Threat model"></a>Threat model</h3><p>保证系统安全：<br>1.policy<br>2.Threat model<br>3.Mechanism<br>假设系统的攻击者  </p>
+
                 
             </div>
             <hr/>
@@ -1183,12 +1184,12 @@
                     <span id="busuanzi_value_site_pv" class="white-color"></span>
             </span>
             
-            
+            <!-- 
                 <span id="busuanzi_container_site_uv">
                 &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
                     <span id="busuanzi_value_site_uv" class="white-color"></span>
             </span>
-            
+             -->
             <br>
 
             <!-- 运行天数提醒. -->
@@ -1226,7 +1227,7 @@
                             document.getElementById("year").innerHTML = todayYear;
                             var daysTip = 'This site has been running for ' + diffDays + ' days';
                             if (language === 'zh-CN') {
-                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                                daysTip = '本站已运行 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
                             } else if (language === 'zh-HK') {
                                 daysTip = '本站已運行 ' + diffDays + ' 天';
                             }

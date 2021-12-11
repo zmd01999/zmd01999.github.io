@@ -8,7 +8,7 @@
       <link href="/2021/12/09/mit6-858/"/>
       <url>/2021/12/09/mit6-858/</url>
       
-        <content type="html"><![CDATA[<h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2><h3 id="Threat-model"><a href="#Threat-model" class="headerlink" title="Threat model"></a>Threat model</h3><p>保证系统安全：<br>1.policy<br>2.Threat model<br>3.Mechanism<br>假设系统的攻击者  </p>]]></content>
       
       
       <categories>
