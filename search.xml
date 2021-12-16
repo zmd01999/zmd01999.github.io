@@ -33,7 +33,7 @@
       <link href="/2021/12/09/mit6-858/"/>
       <url>/2021/12/09/mit6-858/</url>
       
-        <content type="html"><![CDATA[<h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2><h3 id="Threat-model"><a href="#Threat-model" class="headerlink" title="Threat model"></a>Threat model</h3><p>保证系统安全：<br>1.policy<br>2.Threat model<br>3.Mechanism<br>假设系统的攻击者  </p><p>避免缓冲区溢出？<br>1.avoid bugs<br>2.build tool(fuzzing test)<br>3.memsafe-language(由于遗留问题不易完全避免)</p><p>不过2.3不太好实践</p><ul><li><p>Stack Canary</p></li><li><p>bounds checking</p></li></ul><h3 id="Privilege-Separation"><a href="#Privilege-Separation" class="headerlink" title="Privilege-Separation"></a>Privilege-Separation</h3><ul><li>OKWS</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="Computer-System-Security"><a href="#Computer-System-Security" class="headerlink" title="Computer System Security"></a>Computer System Security</h2><h3 id="Threat-model"><a href="#Threat-model" class="headerlink" title="Threat model"></a>Threat model</h3><p>保证系统安全：<br>1.policy<br>2.Threat model<br>3.Mechanism<br>假设系统的攻击者  </p><p>避免缓冲区溢出？<br>1.avoid bugs<br>2.build tool(fuzzing test)<br>3.memsafe-language(由于遗留问题不易完全避免)</p><p>不过2.3不太好实践</p><ul><li><p>Stack Canary</p></li><li><p>bounds checking</p></li></ul><h3 id="Privilege-Separation"><a href="#Privilege-Separation" class="headerlink" title="Privilege-Separation"></a>Privilege-Separation</h3><ul><li>OKWS</li></ul><h3 id="Network-Security"><a href="#Network-Security" class="headerlink" title="Network Security"></a>Network Security</h3>]]></content>
       
       
       <categories>
