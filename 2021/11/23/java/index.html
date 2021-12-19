@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-18
+                    2021-12-19
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    563
+                    581
                 </div>
                 
 
@@ -500,7 +500,10 @@
         String value1 <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">getOrDefault</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"Not Found"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <ul>
-<li> containsKey()</li>
+<li><p>containsKey()</p>
+</li>
+<li><p>values()<br>返回值是含有所以value的Collection</p>
+</li>
 </ul>
 <h4 id="HashMap与LinkedHashMap的异同"><a href="#HashMap与LinkedHashMap的异同" class="headerlink" title="HashMap与LinkedHashMap的异同"></a>HashMap与LinkedHashMap的异同</h4><p>主要区别就是HashMap是无序的，也就是输入顺序和输出顺序不同，而LinkedHashMap是保持一致的</p>
 <blockquote>
@@ -533,7 +536,10 @@
 <p>为什么JDK不使用KMP等接近$O(n)$的算法呢？<br>JDK的编写者们认为大多数情况下，字符串都不长，使用原始实现可能代价更低。因为KMP和Boyer-Moore算法都需要预先计算处理来获得辅助数组，需要一定的时间和空间，这可能在短字符串查找中相比较原始实现耗费更大的代价。而且一般大字符串查找时，程序员们也会使用其它特定的数据结构，查找起来更简单。这有点类似于排除特定情况下的快速排序了。不同环境选择不同算法。</p>
 </blockquote>
 <ul>
-<li>lastIndexOf(String s)<br>用于返回字符串最后一次出现的索引位置</li>
+<li><p>lastIndexOf(String s)<br>用于返回字符串最后一次出现的索引位置</p>
+</li>
+<li><p>valueOf()<br>可以对char[]使用</p>
+</li>
 </ul>
 <h3 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h3><p>所有方法都是静态的</p>
 <ul>
@@ -1236,7 +1242,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">11.3k</span>
+                        class="white-color">11.4k</span>
             
             
             
