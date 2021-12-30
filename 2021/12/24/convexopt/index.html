@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-29
+                    2021-12-30
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    387
+                    582
                 </div>
                 
 
@@ -523,7 +523,38 @@
 <li><p>凸锥(Convex Cone)<br>$c$是凸锥$\Leftrightarrow x_1,x_2\in c,\theta_1,\theta_2\geq 0$，有$x_1\theta_1+x_2\theta_2\in c$</p>
 </li>
 </ul>
-<h3 id="保凸运算"><a href="#保凸运算" class="headerlink" title="保凸运算"></a>保凸运算</h3><h3 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h3>
+<h3 id="保凸运算"><a href="#保凸运算" class="headerlink" title="保凸运算"></a>保凸运算</h3><ul>
+<li>取交集</li>
+<li>仿射函数</li>
+<li>缩放和位移</li>
+<li>凸集的和</li>
+<li>线性矩阵不等式(LMT)</li>
+<li>透视函数</li>
+<li>线性分式函数</li>
+</ul>
+<h3 id="凸函数"><a href="#凸函数" class="headerlink" title="凸函数"></a>凸函数</h3><p>定义一：</p>
+<ul>
+<li>$dom f$是凸集</li>
+<li>对所有的$x,y \in dom f,0≤\theta≤1$有：$f(\theta x+(1-\theta y))\leq\theta f(x)+(1-\theta)f(y)$</li>
+</ul>
+<p>定义二：</p>
+<ul>
+<li>$\forall x\in dom(f),\forall v\in R^n,t\in R,g(t)=f(x+tv)$, 且$dom(g)={t|x+tv\in dom(f)}$<blockquote>
+<p>相当于切西瓜，如果出来的边缘为凸，那么原高维函数也为凸</p>
+</blockquote>
+</li>
+</ul>
+<p>定义三(一阶条件)：<br>设$f:R^n\rightarrow R$可微，即梯度$\bigtriangledown f$在$dom f$上均存在</p>
+<ul>
+<li>$dom f$是凸集</li>
+<li>$f(y)\geq f(x)+\bigtriangledown f(x)^T(y-x),\forall x,y\in dom(f)$</li>
+</ul>
+<p>定义四(二阶条件)：</p>
+<ul>
+<li>$dom f$是凸集</li>
+<li>$\forall x\in dom(f),\bigtriangledown^2f(x)\succeq 0$</li>
+</ul>
+
                 
             </div>
             <hr/>
@@ -1205,7 +1236,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.4k</span>
+                        class="white-color">12.6k</span>
             
             
             
