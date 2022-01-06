@@ -731,6 +731,21 @@
 <p>核心是在前序中找到右子树的开始位置。把前序当作找根的集合，中序当作区分根的左右子树的集合，也就是遍历前序每一个根，然后通过哈希表找到这个根在中序的位置，它的左边就是左子树，右边就是右子树，用根的位置 - 中序起始位置 + 前序起始位置 + 1 就是前序里面的右子树的开始位置，左子树开始位置就是根的后一个。</p>
 </blockquote>
 <h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4><p>回溯和递归的区别就是，回溯会在递归的基础上把上一次递归的值给删除。</p>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//回溯模版</span>
+<span class="token keyword">void</span> <span class="token function">backtrack</span><span class="token punctuation">(</span>参数<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>终止条件<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        存放结果<span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>选择：本层集合中元素（树中节点孩子的数量就是集合的大小）<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        处理节点<span class="token punctuation">;</span>
+        <span class="token function">backtrack</span><span class="token punctuation">(</span>路径，选择列表<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 递归</span>
+        回溯，撤销处理结果
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
 
                 
             </div>
@@ -1410,7 +1425,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.7k</span>
+                        class="white-color">12.8k</span>
             
             
             
