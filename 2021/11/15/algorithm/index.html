@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-05
+                    2022-01-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.7k
+                    1.8k
                 </div>
                 
 
@@ -730,7 +730,8 @@
 <h4 id="从前序与中序遍历序列构造二叉树"><a href="#从前序与中序遍历序列构造二叉树" class="headerlink" title="从前序与中序遍历序列构造二叉树"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">从前序与中序遍历序列构造二叉树</a></h4><blockquote>
 <p>核心是在前序中找到右子树的开始位置。把前序当作找根的集合，中序当作区分根的左右子树的集合，也就是遍历前序每一个根，然后通过哈希表找到这个根在中序的位置，它的左边就是左子树，右边就是右子树，用根的位置 - 中序起始位置 + 前序起始位置 + 1 就是前序里面的右子树的开始位置，左子树开始位置就是根的后一个。</p>
 </blockquote>
-<h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4>
+<h4 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h4><p>回溯和递归的区别就是，回溯会在递归的基础上把上一次递归的值给删除。</p>
+
                 
             </div>
             <hr/>
