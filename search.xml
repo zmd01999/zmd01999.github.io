@@ -33,7 +33,7 @@
       <link href="/2021/12/12/javascript/"/>
       <url>/2021/12/12/javascript/</url>
       
-        <content type="html"><![CDATA[<p>innerText与innerHTML区别是是否识别标签<br>this指向事件函数的调用者</p>]]></content>
+        <content type="html"><![CDATA[<p>innerText与innerHTML区别是是否识别标签<br>this指向事件函数的调用者</p><p>暂停一段时间</p>]]></content>
       
       
       <categories>
