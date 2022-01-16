@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-15
+                    2022-01-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.8k
+                    2k
                 </div>
                 
 
@@ -754,6 +754,25 @@
 <h4 id="前k个高频元素"><a href="#前k个高频元素" class="headerlink" title="前k个高频元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/top-k-frequent-elements/">前k个高频元素</a></h4><blockquote>
 <p>使用最小堆，桶排序</p>
 </blockquote>
+<h4 id="数组中的第K个最大元素"><a href="#数组中的第K个最大元素" class="headerlink" title="数组中的第K个最大元素"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">数组中的第K个最大元素</a></h4><blockquote>
+<p>快排，剪枝，提前判断是否已经排到目标元素了。另外快排随机和不随机选基点差别很大，所以一般需要随机选择。</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java">   <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">fastSort</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">,</span> <span class="token keyword">int</span> target<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">int</span> ran <span class="token operator">=</span> random<span class="token punctuation">.</span><span class="token function">nextInt</span><span class="token punctuation">(</span>j <span class="token operator">-</span> i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> i<span class="token punctuation">;</span>
+        <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> ran<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> left <span class="token operator">=</span> i<span class="token punctuation">,</span> right <span class="token operator">=</span> j<span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right <span class="token operator">&amp;&amp;</span> nums<span class="token punctuation">[</span>right<span class="token punctuation">]</span> <span class="token operator">>=</span> temp<span class="token punctuation">)</span> right<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span><span class="token punctuation">(</span>left <span class="token operator">&lt;</span> right <span class="token operator">&amp;&amp;</span> temp <span class="token operator">>=</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">)</span> left<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left<span class="token punctuation">,</span> right<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token function">swap</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> left<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>target <span class="token operator">==</span> left<span class="token punctuation">)</span> <span class="token keyword">return</span> nums<span class="token punctuation">[</span>left<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>target <span class="token operator">></span> left<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token function">fastSort</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> left <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">,</span> j<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>  <span class="token keyword">return</span> <span class="token function">fastSort</span><span class="token punctuation">(</span>nums<span class="token punctuation">,</span> i<span class="token punctuation">,</span> right<span class="token punctuation">,</span> target<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -1433,7 +1452,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">12.8k</span>
+                        class="white-color">13k</span>
             
             
             
