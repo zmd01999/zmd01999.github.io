@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://haiyilz.com/2021/12/12/javascript/</loc>
+    
+    <lastmod>2022-03-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://haiyilz.com/2022/02/23/cmake/</loc>
     
     <lastmod>2022-03-02</lastmod>
@@ -54,13 +61,6 @@
     <loc>http://haiyilz.com/2021/11/23/java/</loc>
     
     <lastmod>2022-01-21</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://haiyilz.com/2021/12/12/javascript/</loc>
-    
-    <lastmod>2022-01-09</lastmod>
     
   </url>
   
