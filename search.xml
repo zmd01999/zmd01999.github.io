@@ -73,13 +73,29 @@
     
     
     <entry>
-      <title>Spring</title>
+      <title>Spring生态</title>
       <link href="/2022/02/08/spring/"/>
       <url>/2022/02/08/spring/</url>
       
         <content type="html"><![CDATA[]]></content>
       
       
+      <categories>
+          
+          <category> 软件工程 </category>
+          
+          <category> 开源框架 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> IOC </tag>
+            
+            <tag> AOP </tag>
+            
+        </tags>
       
     </entry>
     

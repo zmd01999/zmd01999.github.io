@@ -476,6 +476,24 @@
                     </span>
                 </a>
                 
+                
+                <a href="/tags/IOC/" title="IOC: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="IOC" style="background-color: #FFF;">IOC
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/tags/AOP/" title="AOP: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            data-tagname="AOP" style="background-color: #D7BDE2;">AOP
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
             </div>
         </div>
     </div>
@@ -695,7 +713,12 @@
                             var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
                                 + diffDays + ' days';
                             if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                if(diffYears == 0){
+                                    yearsAndDaysTip = '本站已运行 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                } else{
+                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                }
+                                
                             } else if (language === 'zh-HK') {
                                 yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
                             }

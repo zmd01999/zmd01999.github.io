@@ -1362,7 +1362,12 @@
                             var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
                                 + diffDays + ' days';
                             if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                if(diffYears == 0){
+                                    yearsAndDaysTip = '本站已运行 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                } else{
+                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                }
+                                
                             } else if (language === 'zh-HK') {
                                 yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
                             }

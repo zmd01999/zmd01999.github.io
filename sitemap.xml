@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://haiyilz.com/2022/02/08/spring/</loc>
+    
+    <lastmod>2022-03-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://haiyilz.com/2021/12/12/javascript/</loc>
     
     <lastmod>2022-03-02</lastmod>
@@ -24,13 +31,6 @@
   
   <url>
     <loc>http://haiyilz.com/2022/02/08/airconditioner/</loc>
-    
-    <lastmod>2022-02-08</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://haiyilz.com/2022/02/08/spring/</loc>
     
     <lastmod>2022-02-08</lastmod>
     
@@ -234,6 +234,20 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>http://haiyilz.com/tags/IOC/</loc>
+    <lastmod>2022-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://haiyilz.com/tags/AOP/</loc>
+    <lastmod>2022-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -280,6 +294,13 @@
   
   <url>
     <loc>http://haiyilz.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E7%B1%BB%E5%BA%93/</loc>
+    <lastmod>2022-03-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://haiyilz.com/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2022-03-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

@@ -639,15 +639,15 @@
                             <div class="card-image">
                                 
                                 
-                                <img src="/medias/featureimages/9.webp" class="responsive-img" alt="Spring">
+                                <img src="/medias/featureimages/7.webp" class="responsive-img" alt="Spring生态">
                                 
-                                <span class="card-title">Spring</span>
+                                <span class="card-title">Spring生态</span>
                             </div>
                         </a>
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    
+                                    学JAVA跨不过的坎
                                 
                             </div>
                             <div class="publish-info">
@@ -656,13 +656,29 @@
                                 </span>
                                 <span class="publish-author">
                                     
-                                    <i class="fas fa-user fa-fw"></i>
-                                    枫
+                                    <i class="fas fa-bookmark fa-fw icon-category"></i>
+                                    
+                                    <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                    软件工程
+                                    </a>
+                                    
+                                    <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E5%BC%80%E6%BA%90%E6%A1%86%E6%9E%B6/" class="post-category">
+                                    开源框架
+                                    </a>
+                                    
                                     
                                 </span>
                             </div>
                         </div>
 
+                        
+                        <div class="card-action article-tags">
+                            
+                            <a href="/tags/IOC/"><span class="chip bg-color">IOC</span></a>
+                            
+                            <a href="/tags/AOP/"><span class="chip bg-color">AOP</span></a>
+                            
+                        </div>
                         
                     </div>
                 </div>
@@ -811,7 +827,12 @@
                             var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
                                 + diffDays + ' days';
                             if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                if(diffYears == 0){
+                                    yearsAndDaysTip = '本站已运行 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                } else{
+                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                }
+                                
                             } else if (language === 'zh-HK') {
                                 yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
                             }

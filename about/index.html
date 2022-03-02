@@ -361,14 +361,14 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">7</a></span>
+    <span class="count"><a href="/categories">8</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">14</a></span>
+    <span class="count"><a href="/tags">16</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -391,14 +391,14 @@
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">7</a></span>
+    <span class="count"><a href="/categories">8</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">14</a></span>
+    <span class="count"><a href="/tags">16</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -562,7 +562,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"网络空间安全","value":4},{"name":"小记","value":1},{"name":"研究工具","value":1},{"name":"理财","value":1},{"name":"算法","value":1},{"name":"软件工程","value":4},{"name":"类库","value":1}],
+                data: [{"name":"网络空间安全","value":4},{"name":"小记","value":1},{"name":"研究工具","value":1},{"name":"理财","value":1},{"name":"算法","value":1},{"name":"软件工程","value":5},{"name":"类库","value":1},{"name":"开源框架","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -811,6 +811,18 @@
             </a>
             
             
+            
+            <a href="/tags/IOC/">
+                <span class="chip center-align waves-effect waves-light chip-default">IOC</span>
+            </a>
+            
+            
+            
+            <a href="/tags/AOP/">
+                <span class="chip center-align waves-effect waves-light chip-default">AOP</span>
+            </a>
+            
+            
         </div>
     </div>
     
@@ -1006,7 +1018,12 @@
                             var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
                                 + diffDays + ' days';
                             if (language === 'zh-CN') {
-                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                                if(diffYears == 0){
+                                    yearsAndDaysTip = '本站已运行 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                } else{
+                                    yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天' + todayMinute + ' 分' + todaySecond + ' 秒';
+                                }
+                                
                             } else if (language === 'zh-HK') {
                                 yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
                             }
