@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="paper!paper!paper, 来往如梭">
-    <meta name="description" content="。。。。">
+    <meta name="keywords" content="Pybind11-粘合剂, 来往如梭">
+    <meta name="description" content="C++ 代码暴露给 Python 调用">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>paper!paper!paper | 来往如梭</title>
+    <title>Pybind11-粘合剂 | 来往如梭</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -300,12 +300,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.webp')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/11.webp')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">paper!paper!paper</h1>
+                    <h1 class="description center-align post-title">Pybind11-粘合剂</h1>
                 </div>
             </div>
         </div>
@@ -427,8 +427,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E8%AE%BA%E6%96%87/">
-                                <span class="chip bg-color">论文</span>
+                            <a href="/tags/Cpp/">
+                                <span class="chip bg-color">Cpp</span>
+                            </a>
+                        
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
                             </a>
                         
                     </div>
@@ -439,8 +443,12 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E7%A0%94%E7%A9%B6%E5%B7%A5%E5%85%B7/" class="post-category">
-                                研究工具
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                软件工程
+                            </a>
+                        
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E7%BB%84%E4%BB%B6/" class="post-category">
+                                组件
                             </a>
                         
                     </div>
@@ -452,21 +460,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-11-13
+                    2022-03-09
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2021-12-20
+                    2022-03-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    115
+                    442
                 </div>
                 
 
@@ -493,12 +501,31 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Even though such techniques represent <strong>important building blocks</strong> for comprehensive data protection solutions, alone they are unable to offer strong protection against insider threat </p>
-<p>A good protection solution is thus to deploy anomaly detection techniques <strong>alongside</strong> authentication,</p>
-<p>The first, and most obvious  </p>
-<p>take  account into</p>
-<p>Hence因此</p>
-<p>address the challenges 应对挑战 The main purpose of MEC is to <strong>address the challenges</strong> that are hailed from MCC systems.<br>empowers赋能 MEC <strong>empowers</strong> MCC by deploying cloud resources,<br>state-of-the-art 最先进的<br>This basically shapes the contribution of this paper 这基本上形成了本文的贡献<br>encompassing 包括<br>bottlenecks 瓶颈</p>
+                <h3 id="pybind11"><a href="#pybind11" class="headerlink" title="pybind11"></a>pybind11</h3><p>Pybind11 是一个轻量级的 C++ 库，用于将你的 C++ 代码暴露给 Python 调用，<br>pybind11 是 Header-only 的，因此只需把它的头文件添加到 include 目录就算安装好了</p>
+<blockquote>
+<p>CPython：是用C语言实现Pyhon，是目前应用最广泛的解释器。最新的语言特性都是在这个上面先实现，基本包含了所有第三方库支持，但是CPython有几个缺陷，一是全局锁使Python在多线程效能上表现不佳，二是CPython无法支持JIT（即时编译），导致其执行速度不及Java和Javascipt等语言。于是出现了Pypy。<br>Pypy：是用Python自身实现的解释器。针对CPython的缺点进行了各方面的改良，性能得到很大的提升。最重要的一点就是Pypy集成了JIT。但是，Pypy无法支持官方的C/Python API，导致无法使用例如Numpy，Scipy等重要的第三方库。</p>
+</blockquote>
+<p>而PyBind11底层其实就是CPython的各个API调用，但使用C++做了良好的封装。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//c++给python的接口</span>
+<span class="token function">PYBIND11_MODULE</span><span class="token punctuation">(</span>MODULE_NAME<span class="token punctuation">,</span> m<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>   
+    <span class="token comment" spellcheck="true">/*将python list转为vector&lt;string>
+      在python端调用c++的时候总会有类型之间的区别，这个时候就需要转换类型了
+      模板为：def( "给python调用方法名"， &amp;实际操作的函数， "函数功能说明" )
+    */</span>
+    m<span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span><span class="token string">"cast_vector"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token operator">></span><span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    m<span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span><span class="token string">"add"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>add<span class="token punctuation">,</span> <span class="token string">"add two number"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment" spellcheck="true">//python调用的时候只需要 MODULE_NAME.poperty</span>
+    m<span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"poperty"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">281</span>
+
+    pybind11<span class="token operator">::</span>class_<span class="token operator">&lt;</span>命名空间<span class="token operator">::</span>类名<span class="token operator">></span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token string">"在python中构造这个类的方法名"</span> <span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span>pybind11<span class="token operator">&lt;</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//构造器，对应的是c++类的构造函数，如果没有这个构造函数，或者参数对不是会调用失败</span>
+        <span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span> <span class="token string">"python中函数名"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>命名空间<span class="token operator">::</span>类名<span class="token operator">::</span>函数名 <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
 
                 
             </div>
@@ -525,7 +552,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://zmd01999.github.io/2021/11/13/paper/">http://zmd01999.github.io/2021/11/13/paper/</a>
+                    <a href="http://zmd01999.github.io/2022/03/09/pybind11/">http://zmd01999.github.io/2022/03/09/pybind11/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -563,8 +590,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E8%AE%BA%E6%96%87/">
-                                    <span class="chip bg-color">论文</span>
+                                <a href="/tags/Cpp/">
+                                    <span class="chip bg-color">Cpp</span>
+                                </a>
+                            
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
                                 </a>
                             
                         </div>
@@ -882,46 +913,56 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2021/11/14/fund/">
+                <a href="/2022/03/09/pybind11/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.webp" class="responsive-img" alt="在梦中一夜暴富">
+                        <img src="/medias/featureimages/11.webp" class="responsive-img" alt="Pybind11-粘合剂">
                         
-                        <span class="card-title">在梦中一夜暴富</span>
+                        <span class="card-title">Pybind11-粘合剂</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            各种基金类别罗列,生存技能++
+                            C++ 代码暴露给 Python 调用
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-11-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E7%90%86%E8%B4%A2/" class="post-category">
-                                    理财
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                    软件工程
+                                </a>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E7%BB%84%E4%BB%B6/" class="post-category">
+                                    组件
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E5%9F%BA%E9%87%91/">
-                        <span class="chip bg-color">基金</span>
+                    <a href="/tags/Cpp/">
+                        <span class="chip bg-color">Cpp</span>
+                    </a>
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
                     </a>
                     
                 </div>
@@ -935,31 +976,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2021/10/25/self/">
+                <a href="/2022/03/04/c/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/9.webp" class="responsive-img" alt="我的吐槽">
+                        <img src="/medias/featureimages/18.webp" class="responsive-img" alt="Cpp的秘密">
                         
-                        <span class="card-title">我的吐槽</span>
+                        <span class="card-title">Cpp的秘密</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            回忆录
+                            相关学习
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-10-25
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%B0%8F%E8%AE%B0/" class="post-category">
-                                    小记
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
+                                    软件工程
                                 </a>
                             
                             
@@ -969,8 +1010,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">
-                        <span class="chip bg-color">日常记录</span>
+                    <a href="/tags/Cpp/">
+                        <span class="chip bg-color">Cpp</span>
                     </a>
                     
                 </div>

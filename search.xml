@@ -4,7 +4,36 @@
   
     
     <entry>
-      <title>C++的秘密</title>
+      <title>Pybind11-粘合剂</title>
+      <link href="/2022/03/09/pybind11/"/>
+      <url>/2022/03/09/pybind11/</url>
+      
+        <content type="html"><![CDATA[<h3 id="pybind11"><a href="#pybind11" class="headerlink" title="pybind11"></a>pybind11</h3><p>Pybind11 是一个轻量级的 C++ 库，用于将你的 C++ 代码暴露给 Python 调用，<br>pybind11 是 Header-only 的，因此只需把它的头文件添加到 include 目录就算安装好了</p><blockquote><p>CPython：是用C语言实现Pyhon，是目前应用最广泛的解释器。最新的语言特性都是在这个上面先实现，基本包含了所有第三方库支持，但是CPython有几个缺陷，一是全局锁使Python在多线程效能上表现不佳，二是CPython无法支持JIT（即时编译），导致其执行速度不及Java和Javascipt等语言。于是出现了Pypy。<br>Pypy：是用Python自身实现的解释器。针对CPython的缺点进行了各方面的改良，性能得到很大的提升。最重要的一点就是Pypy集成了JIT。但是，Pypy无法支持官方的C/Python API，导致无法使用例如Numpy，Scipy等重要的第三方库。</p></blockquote><p>而PyBind11底层其实就是CPython的各个API调用，但使用C++做了良好的封装。</p><pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//c++给python的接口</span><span class="token function">PYBIND11_MODULE</span><span class="token punctuation">(</span>MODULE_NAME<span class="token punctuation">,</span> m<span class="token punctuation">)</span><span class="token punctuation">{</span>       <span class="token comment" spellcheck="true">/*将python list转为vector&lt;string>      在python端调用c++的时候总会有类型之间的区别，这个时候就需要转换类型了      模板为：def( "给python调用方法名"， &amp;实际操作的函数， "函数功能说明" )    */</span>    m<span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span><span class="token string">"cast_vector"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token operator">></span><span class="token punctuation">{</span><span class="token string">"1"</span><span class="token punctuation">}</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>    m<span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span><span class="token string">"add"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>add<span class="token punctuation">,</span> <span class="token string">"add two number"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//python调用的时候只需要 MODULE_NAME.poperty</span>    m<span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">"poperty"</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">281</span>    pybind11<span class="token operator">::</span>class_<span class="token operator">&lt;</span>命名空间<span class="token operator">::</span>类名<span class="token operator">></span><span class="token punctuation">(</span>m<span class="token punctuation">,</span> <span class="token string">"在python中构造这个类的方法名"</span> <span class="token punctuation">)</span>        <span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span>pybind11<span class="token operator">&lt;</span><span class="token operator">></span><span class="token operator">::</span><span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">//构造器，对应的是c++类的构造函数，如果没有这个构造函数，或者参数对不是会调用失败</span>        <span class="token punctuation">.</span><span class="token function">def</span><span class="token punctuation">(</span> <span class="token string">"python中函数名"</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>命名空间<span class="token operator">::</span>类名<span class="token operator">::</span>函数名 <span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件工程 </category>
+          
+          <category> 组件 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Cpp </tag>
+            
+            <tag> Python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Cpp的秘密</title>
       <link href="/2022/03/04/c/"/>
       <url>/2022/03/04/c/</url>
       
@@ -20,7 +49,7 @@
       
         <tags>
             
-            <tag> C++ </tag>
+            <tag> Cpp </tag>
             
         </tags>
       
@@ -40,7 +69,7 @@
           
           <category> 软件工程 </category>
           
-          <category> 类库 </category>
+          <category> 组件 </category>
           
       </categories>
       
@@ -74,9 +103,9 @@
       
         <tags>
             
-            <tag> C++ </tag>
-            
             <tag> 编译工具 </tag>
+            
+            <tag> Cpp </tag>
             
         </tags>
       
