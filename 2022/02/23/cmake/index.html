@@ -463,14 +463,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-09
+                    2022-03-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    400
+                    575
                 </div>
                 
 
@@ -505,6 +505,29 @@
 <p>但如果源文件太多，一个一个编译时就会特别麻烦，于是人们想到，为什么不设计一种类似批处理的程序，来批处理编译源文件呢，于是就有了make工具，它是一个自动化编译工具，你可以使用一条命令实现完全编译。但是你需要编写一个规则文件，make依据它来批处理编译，这个文件就是makefile，所以编写makefile文件也是一个程序员所必备的技能。</p>
 <p>对于一个大工程，编写makefile实在是件复杂的事，于是人们又想，为什么不设计一个工具，读入所有源文件之后，自动生成makefile呢，于是就出现了cmake工具，它能够输出各种各样的makefile或者project文件,从而帮助程序员减轻负担。但是随之而来也就是编写cmakelist文件，它是cmake所依据的规则。所以在编程的世界里没有捷径可走，还是要脚踏实地的</p>
 <p><img src="/assets/cmakePic/1.png" alt="两者区别"></p>
+<p>多核编译make -j </p>
+<pre class=" language-cpp"><code class="language-cpp">
+<span class="token comment" spellcheck="true">//想要同时生成多个执行文件，用foreach，将要执行的文件用file找到，然后add_excutable</span>
+<span class="token function">cmake_minimum_required</span><span class="token punctuation">(</span>VERSION <span class="token number">3.1</span><span class="token punctuation">.</span><span class="token number">7</span><span class="token punctuation">)</span>
+<span class="token function">project</span><span class="token punctuation">(</span>mutiple VERSION <span class="token number">0.1</span><span class="token punctuation">.</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token function">include_directories</span><span class="token punctuation">(</span><span class="token string">"${PROJECT_BINARY_DIR}"</span><span class="token punctuation">)</span>
+
+<span class="token macro property"># Find all main*.cpp files and store in list mains</span>
+<span class="token comment" spellcheck="true">/*file(GLOB_RECURSE variable [RELATIVE path] 
+     [FOLLOW_SYMLINKS] [globbingexpressions]...)
+
+GLOB_RECURSE 与GLOB类似，区别在于它会遍历匹配目录的所有文件以及子目录下面的文件。对于属于符号链接的子目录，只有FOLLOW_SYMLINKS指定一或者cmake策略CMP0009没有设置为NEW时，才会遍历这些目录。
+Globbing 表达式与正则表达式类似
+*/</span>
+<span class="token function">file</span><span class="token punctuation">(</span>GLOB_RECURSE mains RELATIVE <span class="token string">"${CMAKE_CURRENT_SOURCE_DIR}"</span> <span class="token string">"${CMAKE_CURRENT_SOURCE_DIR}/main*.cpp"</span><span class="token punctuation">)</span>
+<span class="token function">foreach</span><span class="token punctuation">(</span>mainfile IN LISTS mains<span class="token punctuation">)</span>
+    <span class="token macro property"># Get file name without directory</span>
+    <span class="token function">get_filename_component</span><span class="token punctuation">(</span>mainname $<span class="token punctuation">{</span>mainfile<span class="token punctuation">}</span> NAME_WE<span class="token punctuation">)</span>
+    <span class="token function">add_executable</span><span class="token punctuation">(</span>$<span class="token punctuation">{</span>mainname<span class="token punctuation">}</span> $<span class="token punctuation">{</span>mainfile<span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token function">target_link_libraries</span><span class="token punctuation">(</span>$<span class="token punctuation">{</span>mainname<span class="token punctuation">}</span> PRIVATE stdc<span class="token operator">++</span>fs<span class="token punctuation">)</span>
+<span class="token function">endforeach</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
 
                 
             </div>
@@ -1178,7 +1201,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">17.7k</span>
+                        class="white-color">18.3k</span>
             
             
             

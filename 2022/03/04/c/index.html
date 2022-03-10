@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-09
+                    2022-03-10
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.4k
+                    1.5k
                 </div>
                 
 
@@ -591,6 +591,16 @@ derived <span class="token operator">*</span> b <span class="token operator">=</
 <h4 id="const-cast"><a href="#const-cast" class="headerlink" title="const_cast"></a>const_cast</h4><p>它用来去掉表达式的 const 修饰或 volatile 修饰</p>
 <h4 id="reinterpret-cast"><a href="#reinterpret-cast" class="headerlink" title="reinterpret_cast"></a>reinterpret_cast</h4><p>reinterpret_cast&lt;类型说明符&gt;(表达式）<br>将一个指针类型转化成另一个指针类型,对二进制位的重新解释<br>如用float 指针来操作一个 char 数组</p>
 <h3 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h3><p>命名空间<code>namespace</code>是为了避免命名冲突，和类有什么区别？<br>——namespace相当于一个大的国家，而class只是其中的一员，可能不同的“国家”会有同名的“人”，也会有名字相同但实现不同的武器(函数)<br>它的存在和<code>JAVA</code>里面的<code>Package</code>是类似的</p>
+<h3 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h3><ul>
+<li>定义一种类型的别名，而不只是简单的宏替换。可以用作同时声明指针型的多个对象。比如：<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">typedef</span> <span class="token keyword">char</span><span class="token operator">*</span> PCHAR<span class="token punctuation">;</span> 
+PCHAR pa<span class="token punctuation">,</span> pb <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">char</span> <span class="token operator">*</span>pa<span class="token punctuation">,</span> <span class="token operator">*</span>pb
+</code></pre>
+</li>
+<li>当要跨平台时，浮点精度不一样，那么只需要定义一个新类型，不同平台改typedef<br>如<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">typedef</span> <span class="token keyword">long</span> <span class="token keyword">double</span> FLOAT<span class="token punctuation">;</span> 
+<span class="token keyword">typedef</span> <span class="token keyword">double</span> FLOAT<span class="token punctuation">;</span> 
+</code></pre>
+</li>
+</ul>
 <h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><p>C++11特性</p>
 <h4 id="enable-shared-from-this"><a href="#enable-shared-from-this" class="headerlink" title="enable_shared_from_this"></a>enable_shared_from_this</h4><p>在一个类B被share_ptr管理的前提下，B中有个get方法可以将自己传递出去，这个时候不能自己构造一个share_ptr指针如：<br>std::shared_ptr<B>(this)，这回导致两个share_ptr指向同一个对象，但指针都认为自己独享这个对象，所以在这个时候就需要让类A继承 <code>std::enable_shared_from_this</code> 然后调用 <code>shared_from_this()</code></p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30957800">相关解释</a></p>
@@ -1291,7 +1301,7 @@ derived <span class="token operator">*</span> b <span class="token operator">=</
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">17.7k</span>
+                        class="white-color">18.3k</span>
             
             
             
