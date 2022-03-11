@@ -467,14 +467,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-10
+                    2022-03-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    274
+                    374
                 </div>
                 
 
@@ -502,9 +502,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="内存时序数据库"><a href="#内存时序数据库" class="headerlink" title="内存时序数据库"></a>内存时序数据库</h3><p>为什么成为时序内存数据库？<br>首先时序是因为它根据时间排列数据，也根据时间读取数据<br>其次内存是因为它采用mmp的机制，映射成文件<br>它支持最低延迟跨进程通信的解决方案</p>
+<p>当writer一直在写，reader在某个时刻开始读，那么它读到的就是从这个时刻开始的frame<br><img src="/assets/cppetc/readnow.png" alt="读写1"></p>
+<p>如果等到writer写完了，读者才开始从现在这个时刻读，那么将读不到任何东西<br><img src="/assets/cppetc/readlate.png" alt="读写2"></p>
+<p>当然，读者可以随意设置时间，也就意味着读者可以自己决定读什么时刻的数据</p>
+<p><img src="/assets/cppetc/yijinjing2.0.png" alt="yijinjing2.0"></p>
 <p>为什么初始化reader的时候time设置为0就能读到数据，而设置当前时间却读不到？<br>但是0的时候先启动reader会Segmentation fault</p>
 <p>——reader初始化过程，首先会会传入想读取的目录等信息和时间，这个时间就是指定从什么时候开始读取，所以之前为什么会有这个疑问，那就是因为如果时间设为0的话那么就从这个page的起始位置开始读取frame，如果不是那么就从这个时间点的下一个frame开始读，在测试的时候writer写完之后才启动reader而且传的是当前时间，那可以想像，从当前时间开始已经没有数据了所以不可能读到。</p>
-
+<h3 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h3>
                 
             </div>
             <hr/>
@@ -1199,7 +1203,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">18.3k</span>
+                        class="white-color">18.4k</span>
             
             
             
