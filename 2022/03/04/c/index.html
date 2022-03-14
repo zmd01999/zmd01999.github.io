@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-10
+                    2022-03-14
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.5k
+                    2k
                 </div>
                 
 
@@ -601,6 +601,52 @@ PCHAR pa<span class="token punctuation">,</span> pb <span class="token operator"
 </code></pre>
 </li>
 </ul>
+<h3 id="一些区别"><a href="#一些区别" class="headerlink" title="一些区别"></a>一些区别</h3><h4 id="struct与class区别"><a href="#struct与class区别" class="headerlink" title="struct与class区别"></a>struct与class区别</h4><p>class 和 struct 的用法是完全相同的，但只有一个本质区别，如下：</p>
+<ul>
+<li>在使用 struct 定义类时，所有成员的默认访问级别为 public；</li>
+<li>在用 class 定义类时，所有成员的默认访问级别为 private；</li>
+</ul>
+<h4 id="const和constexpr"><a href="#const和constexpr" class="headerlink" title="const和constexpr"></a>const和constexpr</h4><ul>
+<li>const不能被赋值，包括构造函数。唯一的方式是初始化列表,初始化列表先于构造函数的函数体执行,列表一定是在对象创建的同时执行，先于函数体。</li>
+</ul>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">constTest</span><span class="token punctuation">{</span>
+    <span class="token keyword">private</span><span class="token operator">:</span>
+        <span class="token keyword">int</span> var1<span class="token punctuation">;</span>
+        <span class="token keyword">int</span> var2<span class="token punctuation">;</span>
+        <span class="token keyword">const</span> <span class="token keyword">int</span> var3<span class="token punctuation">;</span>
+         <span class="token function">constTest</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">var1</span><span class="token punctuation">(</span>v1<span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">var2</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token function">var3</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+            <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+        <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
+<li>constexpr是修饰一个常量表达式</li>
+</ul>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">template</span> <span class="token operator">&lt;</span><span class="token keyword">int</span> N<span class="token operator">></span>
+<span class="token keyword">class</span> <span class="token class-name">list</span>
+<span class="token punctuation">{</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">constexpr</span> <span class="token keyword">int</span> <span class="token function">sqr1</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span> <span class="token keyword">return</span> arg<span class="token operator">*</span>arg<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">sqr2</span><span class="token punctuation">(</span><span class="token keyword">int</span> arg<span class="token punctuation">)</span>
+<span class="token punctuation">{</span> <span class="token keyword">return</span> arg<span class="token operator">*</span>arg<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">const</span> <span class="token keyword">int</span> X <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+    list<span class="token operator">&lt;</span><span class="token function">sqr1</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token operator">></span> mylist1<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//可以，因为sqr1时constexpr函数</span>
+    list<span class="token operator">&lt;</span><span class="token function">sqr2</span><span class="token punctuation">(</span>X<span class="token punctuation">)</span><span class="token operator">></span> mylist2<span class="token punctuation">;</span><span class="token comment" spellcheck="true">//不可以，因为sqr2不是constexpr函数</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/20206577">相关链接</a></p>
+<h4 id="static和const"><a href="#static和const" class="headerlink" title="static和const"></a>static和const</h4><p>static表示的是静态的。类的静态成员函数、静态成员变量是和类相关的，而不是和类的具体对象相关的。即使没有具体对象，也能调用类的静态成员函数和成员变量。一般类的静态函数几乎就是一个全局函数，只不过它的作用域限于包含它的文件中。</p>
+<p>const数据成员 只在某个对象生存期内是常量，而对于整个类而言却是可变的。因为类可以创建多个对象，不同的对象其const数据成员的值可以不同。所以不能在类的声明中初始化const数据成员，因为类的对象没被创建时，编译器不知道const数据成员的值是什么。</p>
+<p>通俗的来说：<br><strong>static就表示与具体哪个对象无关，但是每个对象都有</strong><br><strong>const就是表示出生之后就没法改变，但是每个对象可以不同</strong></p>
 <h3 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h3><p>C++11特性</p>
 <h4 id="enable-shared-from-this"><a href="#enable-shared-from-this" class="headerlink" title="enable_shared_from_this"></a>enable_shared_from_this</h4><p>在一个类B被share_ptr管理的前提下，B中有个get方法可以将自己传递出去，这个时候不能自己构造一个share_ptr指针如：<br>std::shared_ptr<B>(this)，这回导致两个share_ptr指向同一个对象，但指针都认为自己独享这个对象，所以在这个时候就需要让类A继承 <code>std::enable_shared_from_this</code> 然后调用 <code>shared_from_this()</code></p>
 <p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/30957800">相关解释</a></p>
@@ -1301,7 +1347,7 @@ PCHAR pa<span class="token punctuation">,</span> pb <span class="token operator"
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">18.5k</span>
+                        class="white-color">19k</span>
             
             
             
