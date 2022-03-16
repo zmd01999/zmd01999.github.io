@@ -467,14 +467,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-11
+                    2022-03-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    374
+                    829
                 </div>
                 
 
@@ -508,7 +508,97 @@
 <p><img src="/assets/cppetc/yijinjing2.0.png" alt="yijinjing2.0"></p>
 <p>为什么初始化reader的时候time设置为0就能读到数据，而设置当前时间却读不到？<br>但是0的时候先启动reader会Segmentation fault</p>
 <p>——reader初始化过程，首先会会传入想读取的目录等信息和时间，这个时间就是指定从什么时候开始读取，所以之前为什么会有这个疑问，那就是因为如果时间设为0的话那么就从这个page的起始位置开始读取frame，如果不是那么就从这个时间点的下一个frame开始读，在测试的时候writer写完之后才启动reader而且传的是当前时间，那可以想像，从当前时间开始已经没有数据了所以不可能读到。</p>
-<h3 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h3>
+<h3 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//reader的创建</span>
+JournalReaderPtr JournalReader<span class="token operator">::</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">const</span> vector<span class="token operator">&lt;</span>string<span class="token operator">></span><span class="token operator">&amp;</span> dirs<span class="token punctuation">,</span> <span class="token keyword">const</span> vector<span class="token operator">&lt;</span>string<span class="token operator">></span><span class="token operator">&amp;</span> jnames<span class="token punctuation">,</span> <span class="token keyword">long</span> startTime<span class="token punctuation">,</span> <span class="token keyword">const</span> string<span class="token operator">&amp;</span> readerName<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//创建指针</span>
+    JournalReaderPtr jrp <span class="token operator">=</span> <span class="token function">JournalReaderPtr</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">JournalReader</span><span class="token punctuation">(</span>provider<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">assert</span><span class="token punctuation">(</span>dirs<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> jnames<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>size_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> dirs<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//把要读的journal信息初始化</span>
+        jrp<span class="token operator">-</span><span class="token operator">></span><span class="token function">addJournal</span><span class="token punctuation">(</span>dirs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span> jnames<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token comment" spellcheck="true">// 如下  </span>
+    jrp<span class="token operator">-</span><span class="token operator">></span><span class="token function">jumpStart</span><span class="token punctuation">(</span>startTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> jrp<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> JournalReader<span class="token operator">::</span><span class="token function">jumpStart</span><span class="token punctuation">(</span><span class="token keyword">long</span> startTime<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>JournalPtr<span class="token operator">&amp;</span> journal<span class="token operator">:</span> journals<span class="token punctuation">)</span>
+        <span class="token comment" spellcheck="true">//这是为了定位从哪个地方开始读</span>
+        journal<span class="token operator">-</span><span class="token operator">></span><span class="token function">seekTime</span><span class="token punctuation">(</span>startTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//time是reader传进来的参数</span>
+<span class="token keyword">void</span> Journal<span class="token operator">::</span><span class="token function">seekTime</span><span class="token punctuation">(</span><span class="token keyword">long</span> time<span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 如果当前页为空那么就释放掉</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>curPage<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+        pageProvider<span class="token operator">-</span><span class="token operator">></span><span class="token function">releasePage</span><span class="token punctuation">(</span>curPage<span class="token operator">-</span><span class="token operator">></span><span class="token function">getBuffer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> JOURNAL_PAGE_SIZE<span class="token punctuation">,</span> serviceIdx<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//从最后的地方开始，也就是现在writer写在哪里了就从哪里读</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>time <span class="token operator">==</span> TIME_TO_LAST<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//得到总页数</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">short</span><span class="token operator">></span> pageNums <span class="token operator">=</span> PageUtil<span class="token operator">::</span><span class="token function">GetPageNums</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        curPage <span class="token operator">=</span> pageProvider<span class="token operator">-</span><span class="token operator">></span><span class="token function">getPage</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">,</span> serviceIdx<span class="token punctuation">,</span> <span class="token punctuation">(</span>pageNums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> pageNums<span class="token punctuation">.</span><span class="token function">back</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//跳到下一个准备开始写的位置</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>curPage<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+            curPage<span class="token operator">-</span><span class="token operator">></span><span class="token function">passWrittenFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>time <span class="token operator">==</span> TIME_FROM_FIRST<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        vector<span class="token operator">&lt;</span><span class="token keyword">short</span><span class="token operator">></span> pageNums <span class="token operator">=</span> PageUtil<span class="token operator">::</span><span class="token function">GetPageNums</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//从头开始读</span>
+        curPage <span class="token operator">=</span> pageProvider<span class="token operator">-</span><span class="token operator">></span><span class="token function">getPage</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">,</span> serviceIdx<span class="token punctuation">,</span> <span class="token punctuation">(</span>pageNums<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">?</span> pageNums<span class="token punctuation">.</span><span class="token function">front</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">short</span> pageNum <span class="token operator">=</span> PageUtil<span class="token operator">::</span><span class="token function">GetPageNumWithTime</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">,</span> time<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        curPage <span class="token operator">=</span> pageProvider<span class="token operator">-</span><span class="token operator">></span><span class="token function">getPage</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> shortName<span class="token punctuation">,</span> serviceIdx<span class="token punctuation">,</span> pageNum<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//跳到time这个时间点写的frame上</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>curPage<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+            curPage<span class="token operator">-</span><span class="token operator">></span><span class="token function">passToTime</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//判断是否过期，如果expired==true了，那么reader将读不到任何数据了</span>
+    expired <span class="token operator">=</span> <span class="token punctuation">(</span>curPage<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//读取下一个frame</span>
+<span class="token keyword">inline</span> FramePtr JournalReader<span class="token operator">::</span><span class="token function">getNextFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">long</span>  minNano <span class="token operator">=</span> TIME_TO_LAST<span class="token punctuation">;</span>
+    <span class="token keyword">void</span><span class="token operator">*</span> res_address <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">//遍历journal，找到所有journal里面最先写的一个</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>JournalPtr<span class="token operator">&amp;</span> journal<span class="token operator">:</span> journals<span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//这个方法是为了找到能够读的frame（writer写完数据之后会在frame-status 更新状态，只有是写完成状态才可以被读）</span>
+        FrameHeader<span class="token operator">*</span> header <span class="token operator">=</span> <span class="token punctuation">(</span>FrameHeader<span class="token operator">*</span><span class="token punctuation">)</span><span class="token punctuation">(</span>journal<span class="token operator">-</span><span class="token operator">></span><span class="token function">locateFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>header <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+        <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//frame header里面有frame的信息，nano就是开始写frame的时间</span>
+            <span class="token keyword">long</span> nano <span class="token operator">=</span> header<span class="token operator">-</span><span class="token operator">></span>nano<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>minNano <span class="token operator">==</span> TIME_TO_LAST <span class="token operator">||</span> nano <span class="token operator">&lt;</span> minNano<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span>
+                minNano <span class="token operator">=</span> nano<span class="token punctuation">;</span>
+                res_address <span class="token operator">=</span> header<span class="token punctuation">;</span>
+                curJournal <span class="token operator">=</span> journal<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>res_address <span class="token operator">!=</span> <span class="token keyword">nullptr</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//将这个journal指向当前frame的指针后移一位</span>
+        curJournal<span class="token operator">-</span><span class="token operator">></span><span class="token function">passFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token function">FramePtr</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">Frame</span><span class="token punctuation">(</span>res_address<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span>
+    <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//如果没找到header返回空指针</span>
+        <span class="token keyword">return</span> <span class="token function">FramePtr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="魔改"><a href="#魔改" class="headerlink" title="魔改"></a>魔改</h3>
                 
             </div>
             <hr/>
@@ -895,56 +985,46 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="far fa-dot-circle"></i>&nbsp;本篇
-            </div>
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/03/10/yijinjing/">
+                <a href="/2022/03/16/linux/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/14.webp" class="responsive-img" alt="yijinjing-内存数据库">
+                        <img src="/medias/featureimages/18.webp" class="responsive-img" alt="linux">
                         
-                        <span class="card-title">yijinjing-内存数据库</span>
+                        <span class="card-title">linux</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            可以使用于进程通信
+                            学习过程中遇到的积累
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-10
-                            </span>
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-16
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/" class="post-category">
-                                    软件工程
-                                </a>
-                            
-                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E7%BB%84%E4%BB%B6/" class="post-category">
-                                    组件
+                            <a href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="post-category">
+                                    操作系统
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Cpp/">
-                        <span class="chip bg-color">Cpp</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%97%B6%E5%BA%8F%E5%86%85%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">时序内存数据库</span>
+                    <a href="/tags/Linux/">
+                        <span class="chip bg-color">Linux</span>
                     </a>
                     
                 </div>
@@ -1203,7 +1283,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">19k</span>
+                        class="white-color">19.4k</span>
             
             
             
