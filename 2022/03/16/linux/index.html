@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-17
+                    2022-03-18
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    112
+                    908
                 </div>
                 
 
@@ -493,13 +493,140 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="IPC机制"><a href="#IPC机制" class="headerlink" title="IPC机制"></a>IPC机制</h3><h4 id="管道-PIPE"><a href="#管道-PIPE" class="headerlink" title="管道-PIPE"></a>管道-PIPE</h4><p>和文件系统的操作一样，只要创建好管道之后就可以使用open()、read()、write()标准文件操作进行读写了</p>
+                <h3 id="IPC机制"><a href="#IPC机制" class="headerlink" title="IPC机制"></a>IPC机制</h3><h4 id="System-V-与-POSIX"><a href="#System-V-与-POSIX" class="headerlink" title="System V 与 POSIX"></a>System V 与 POSIX</h4><p>Linux 系统为共享内存提供了两个独立的 API：旧的 System V API 和更新的 POSIX API。<br>POSIX(Portable Operating System Interface for Computing Systems)是由IEEE 和ISO/IEC 开发的一簇标准。<strong>POSIX的出现是为了统一不同平台的系统接口，如在linux下子进程创建为fork()，windows下为creatprocess，POSIX将它们封装在相同名称的函数里</strong><br>System V， 曾经也被称为 AT&amp;T System V，是Unix操作系统众多版本中的一支。</p>
+<ul>
+<li>System V<table>
+<thead>
+<tr>
+<th align="center">分类</th>
+<th align="center">创建函数</th>
+<th align="center">控制函数</th>
+<th align="center">独立函数</th>
+<th align="center">…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">消息队列</td>
+<td align="center">msgget</td>
+<td align="center">msgctl</td>
+<td align="center">msgsnd，msgrcv</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">信号量</td>
+<td align="center">semget</td>
+<td align="center">semctl</td>
+<td align="center">semop</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">共享内存</td>
+<td align="center">shmget</td>
+<td align="center">shmctl</td>
+<td align="center">shmat，shmdt</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>创建或打开一个IPC对象的三个 XXXget 函数的第一个参数是key, 即为IPC键<br>对于key的值,应用程序有两种选择：、<br>(1)  调用ftok, 给它传递pathname和id<br>(2)  指定key为IPC_PRIVATE,这将保证为创建一个新的, 唯一的IPC对象<br>每个 XXXget 函数中都有一个flag参数, 它用于指定IPC对象的读写权限位, 也即ipc_oerm中的 mode</p>
+<blockquote>
+<p>指定key为IPC_PRIVATE能保证创建一个唯一的IPC对象<br>设置flag为IPC_CREAT,没有IPC_EXCL时,如果指定IPC不存在, 就创建,存在就返回该对象<br>设置flag为IPC_CREAT和IPC_EXCL时,如果指定IPC不存在, 就创建,存在就返回错误EEXIST</p>
+</blockquote>
+<ul>
+<li>POSIX<table>
+<thead>
+<tr>
+<th align="center">分类</th>
+<th align="center">创建函数</th>
+<th align="center">删除函数</th>
+<th align="center">独立函数</th>
+<th align="center">…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">消息队列</td>
+<td align="center">mq_open</td>
+<td align="center">mq_unlink</td>
+<td align="center">mq_send.mq_receive</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">信号量</td>
+<td align="center">sem_open</td>
+<td align="center">sem_unlink</td>
+<td align="center">sem_getvalue,sem_post</td>
+<td align="center">…</td>
+</tr>
+<tr>
+<td align="center">共享内存</td>
+<td align="center">shm_open</td>
+<td align="center">shm_unlink</td>
+<td align="center">mmap</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="管道-PIPE"><a href="#管道-PIPE" class="headerlink" title="管道-PIPE"></a>管道-PIPE</h4><p>和文件系统的操作一样，只要创建好管道之后就可以使用open()、read()、write()标准文件操作进行读写了</p>
 <ul>
 <li>半双工</li>
 <li>匿名管道（PIPE），用于父子进程：int pipe(int pipefd[2])</li>
+</ul>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;sys/wait.h></span> </span><span class="token comment" spellcheck="true">/* wait */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdlib.h></span>   </span><span class="token comment" spellcheck="true">/* exit functions */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;unistd.h></span>   </span><span class="token comment" spellcheck="true">/* read, write, pipe, _exit */</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;string.h></span></span>
+
+<span class="token macro property">#<span class="token directive keyword">define</span> ReadEnd  0</span>
+<span class="token macro property">#<span class="token directive keyword">define</span> WriteEnd 1</span>
+
+<span class="token keyword">void</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">perror</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">exit</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">/** failure **/</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">int</span> pipeFDs<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* two file descriptors */</span>
+  <span class="token keyword">char</span> buf<span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">/* 1-byte buffer */</span>
+  <span class="token keyword">const</span> <span class="token keyword">char</span><span class="token operator">*</span> msg <span class="token operator">=</span> <span class="token string">"Nature's first green is gold\n"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* bytes to write */</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">pipe</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">"pipeFD"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  pid_t cpid <span class="token operator">=</span> <span class="token function">fork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                <span class="token comment" spellcheck="true">/* fork a child process */</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>cpid <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token function">report_and_exit</span><span class="token punctuation">(</span><span class="token string">"fork"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>              <span class="token comment" spellcheck="true">/* check for failure */</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token number">0</span> <span class="token operator">==</span> cpid<span class="token punctuation">)</span> <span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">/*** child ***/</span>                 <span class="token comment" spellcheck="true">/* child process */</span>
+    <span class="token function">close</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>WriteEnd<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                         <span class="token comment" spellcheck="true">/* child reads, doesn't write */</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token function">read</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>ReadEnd<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">)</span>       <span class="token comment" spellcheck="true">/* read until end of byte stream */</span>
+      <span class="token function">write</span><span class="token punctuation">(</span>STDOUT_FILENO<span class="token punctuation">,</span> <span class="token operator">&amp;</span>buf<span class="token punctuation">,</span> <span class="token keyword">sizeof</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">/* echo to the standard output */</span>
+
+    <span class="token function">close</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>ReadEnd<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                          <span class="token comment" spellcheck="true">/* close the ReadEnd: all done */</span>
+    <span class="token function">_exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                         <span class="token comment" spellcheck="true">/* exit and notify parent at once  */</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">else</span> <span class="token punctuation">{</span>              <span class="token comment" spellcheck="true">/*** parent ***/</span>
+    <span class="token function">close</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>ReadEnd<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                          <span class="token comment" spellcheck="true">/* parent writes, doesn't read */</span>
+
+    <span class="token function">write</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>WriteEnd<span class="token punctuation">]</span><span class="token punctuation">,</span> msg<span class="token punctuation">,</span> <span class="token function">strlen</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">/* write the bytes to the pipe */</span>
+    <span class="token function">close</span><span class="token punctuation">(</span>pipeFDs<span class="token punctuation">[</span>WriteEnd<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                         <span class="token comment" spellcheck="true">/* done writing: generate eof */</span>
+
+    <span class="token function">wait</span><span class="token punctuation">(</span><span class="token constant">NULL</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                       <span class="token comment" spellcheck="true">/* wait for child to exit */</span>
+    <span class="token function">exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>                                          <span class="token comment" spellcheck="true">/* exit normally */</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<ul>
 <li>命名管道（FIFO）：mkfifo或mknod</li>
 </ul>
 <p>Linux系统无论对于命名管道和匿名管道，底层都用的是同一种文件系统的操作行为，这种文件系统叫pipefs</p>
+<h4 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h4><h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><p>消息队列与命名管道类似，但少了打开和关闭管道方面的复杂性。使用消息队列并未解决我们在使用命名管道时遇到的一些问题，如管道满时的阻塞问题。消息队列提供了一种在两个不相关进程间传递数据的简单有效的方法。与命名管道相比：消息队列的优势在于，它独立于发送和接收进程而存在，这消除了在同步命名管道的打开和关闭时可能产生的一些困难。消息队列提供了一种从一个进程向另一个进程发送一个数据块的方法。而且，每个数据块被认为含有一个类型，接收进程可以独立地接收含有不同类型值的数据块。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">//获取msgid</span>
+<span class="token keyword">int</span> <span class="token function">msgget</span><span class="token punctuation">(</span>key_t<span class="token punctuation">,</span> key<span class="token punctuation">,</span> <span class="token keyword">int</span> msgflg<span class="token punctuation">)</span><span class="token punctuation">;</span>  
+
+
+</code></pre>
 
                 
             </div>
@@ -1183,7 +1310,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">19.7k</span>
+                        class="white-color">20.5k</span>
             
             
             
