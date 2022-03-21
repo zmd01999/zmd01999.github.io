@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Git-版本控制</title>
+      <link href="/2022/03/21/git/"/>
+      <url>/2022/03/21/git/</url>
+      
+        <content type="html"><![CDATA[<p>当我想要做项目了，</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件工程 </category>
+          
+          <category> 代码管理 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux</title>
       <link href="/2022/03/16/linux/"/>
       <url>/2022/03/16/linux/</url>
