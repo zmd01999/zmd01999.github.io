@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-03-18
+                    2022-03-22
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    908
+                    1.2k
                 </div>
                 
 
@@ -493,7 +493,22 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="IPC机制"><a href="#IPC机制" class="headerlink" title="IPC机制"></a>IPC机制</h3><h4 id="System-V-与-POSIX"><a href="#System-V-与-POSIX" class="headerlink" title="System V 与 POSIX"></a>System V 与 POSIX</h4><p>Linux 系统为共享内存提供了两个独立的 API：旧的 System V API 和更新的 POSIX API。<br>POSIX(Portable Operating System Interface for Computing Systems)是由IEEE 和ISO/IEC 开发的一簇标准。<strong>POSIX的出现是为了统一不同平台的系统接口，如在linux下子进程创建为fork()，windows下为creatprocess，POSIX将它们封装在相同名称的函数里</strong><br>System V， 曾经也被称为 AT&amp;T System V，是Unix操作系统众多版本中的一支。</p>
+                <h3 id="Linux的线程与进程"><a href="#Linux的线程与进程" class="headerlink" title="Linux的线程与进程"></a>Linux的线程与进程</h3><ul>
+<li>pid: 进程ID。</li>
+<li>lwp: 线程ID。在用户态的命令(比如ps)中常用的显示方式。</li>
+<li>tid: 线程ID，等于lwp。tid在系统提供的接口函数中更常用，比如syscall(SYS_gettid)和syscall(__NR_gettid)。</li>
+<li>tgid: 线程组ID，也就是线程组leader的进程ID，等于pid。</li>
+</ul>
+<p>简单的来说pid=tgid，tid=lwp，只不过不同命令里面可能有别的意义，有待探究</p>
+<h3 id="命令集合"><a href="#命令集合" class="headerlink" title="命令集合"></a>命令集合</h3><ul>
+<li><p>ps -ef | grep XXX<br>-e ：所有的进程均显示出来<br>-f ：做一个更为完整的输出。<br>通常在linux下跑程序，跑起来了不知道怎么关闭，那就用此命令，找到对应程序pid，然后kill掉</p>
+</li>
+<li><p>nohup<br>免疫SIGHUP信号，不挂断的运行命令,并使程序与用户终端没有关系，断开ssh可以继续跑</p>
+</li>
+<li><p>&amp;<br>在后台运行免疫ctrl C命令，也就是免疫SIGINT信号，如果关掉shell，那么程序将终止。如果不加&amp;，那么跑起程序之后这个终端就不能再有别的操作了<br><strong>如果nohup 和 &amp; 配合使用，那么就免疫挂起和ctrl C，这个时候除了kill对应的pid之外程序是不会终止的</strong></p>
+</li>
+</ul>
+<h3 id="IPC机制"><a href="#IPC机制" class="headerlink" title="IPC机制"></a>IPC机制</h3><h4 id="System-V-与-POSIX"><a href="#System-V-与-POSIX" class="headerlink" title="System V 与 POSIX"></a>System V 与 POSIX</h4><p>Linux 系统为共享内存提供了两个独立的 API：旧的 System V API 和更新的 POSIX API。<br>POSIX(Portable Operating System Interface for Computing Systems)是由IEEE 和ISO/IEC 开发的一簇标准。<strong>POSIX的出现是为了统一不同平台的系统接口，如在linux下子进程创建为fork()，windows下为creatprocess，POSIX将它们封装在相同名称的函数里</strong><br>System V， 曾经也被称为 AT&amp;T System V，是Unix操作系统众多版本中的一支。</p>
 <ul>
 <li>System V<table>
 <thead>
@@ -1312,7 +1327,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.5k</span>
+                        class="white-color">20.9k</span>
             
             
             
