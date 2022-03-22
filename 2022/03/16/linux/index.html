@@ -494,10 +494,10 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <h3 id="Linux的线程与进程"><a href="#Linux的线程与进程" class="headerlink" title="Linux的线程与进程"></a>Linux的线程与进程</h3><ul>
-<li>pid: 进程ID。</li>
-<li>lwp: 线程ID。在用户态的命令(比如ps)中常用的显示方式。</li>
-<li>tid: 线程ID，等于lwp。tid在系统提供的接口函数中更常用，比如syscall(SYS_gettid)和syscall(__NR_gettid)。</li>
-<li>tgid: 线程组ID，也就是线程组leader的进程ID，等于pid。</li>
+<li><code>pid(process ID)</code>: 进程ID。</li>
+<li><code>lwp</code>: 线程ID。在用户态的命令(比如ps)中常用的显示方式。</li>
+<li><code>tid(thread ID)</code>: 线程ID，等于lwp。tid在系统提供的接口函数中更常用，比如syscall(SYS_gettid)和syscall(__NR_gettid)。</li>
+<li><code>tgid(thread group ID for the thread group leader)</code>: 线程组ID，也就是线程组leader的进程ID，等于pid。</li>
 </ul>
 <p>简单的来说pid=tgid，tid=lwp，只不过不同命令里面可能有别的意义，有待探究</p>
 <h3 id="命令集合"><a href="#命令集合" class="headerlink" title="命令集合"></a>命令集合</h3><ul>
@@ -1327,7 +1327,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">20.9k</span>
+                        class="white-color">21k</span>
             
             
             
