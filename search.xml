@@ -8,7 +8,7 @@
       <link href="/2022/03/21/git/"/>
       <url>/2022/03/21/git/</url>
       
-        <content type="html"><![CDATA[<p>现在有一个team要做一个项目有：<br>小A，小B，小C<br>他们面临一个问题，先建立本地仓库还是远程仓库</p><ul><li>先建立本地仓库，然后再建立GitHub远程仓库进行关联：适用于把已有项目代码上传到GitHub</li></ul><pre class=" language-git"><code class="language-git">git initgit add .git commit -m <span class="token string">'xxxx'</span><span class="token comment" spellcheck="true"># 查看本地仓库状态</span>git status<span class="token comment" spellcheck="true">#创建远程仓库</span>git remote add origin https://github.com/XXX.gitgit push origin master</code></pre><ul><li>先建立远程仓库，然后再建立本地仓库进行关联：适用于在项目代码编写之前，直接把项目托管到GitHub。</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>现在有一个team要做一个项目有：<br>小A，小B，小C<br>他们面临一个问题，先建立本地仓库还是远程仓库</p><ul><li>先建立本地仓库，然后再建立GitHub远程仓库进行关联：适用于把已有项目代码上传到GitHub</li></ul><pre class=" language-git"><code class="language-git">git initgit add .git commit -m <span class="token string">'xxxx'</span><span class="token comment" spellcheck="true"># 查看本地仓库状态</span>git status<span class="token comment" spellcheck="true">#创建远程仓库</span>git remote add origin https://github.com/XXX.gitgit push origin master</code></pre><ul><li>先建立远程仓库，然后再建立本地仓库进行关联：适用于在项目代码编写之前，直接把项目托管到GitHub。<pre class=" language-git"><code class="language-git">git clone XXX</code></pre></li></ul>]]></content>
       
       
       <categories>
