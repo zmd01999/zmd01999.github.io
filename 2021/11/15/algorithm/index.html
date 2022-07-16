@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-01-25
+                    2022-07-16
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.2k
+                    2.3k
                 </div>
                 
 
@@ -789,6 +789,7 @@
     <span class="token punctuation">}</span>
 </code></pre>
 <p>时间复杂度：$O(logn)$<br>设问题规模为 n，需要 t 次查找，由二分查找的过程可知，每一次查找问题规模减半，最差情况下，直到问题规模为 1 时才找到或者仍未找到，因此可知：<br>$$n×(\frac 1 2)^t=1$$<br>则：<br>$$2^t=n$$<br>$$t=log_2n$$</p>
+<h4 id="滑动窗口的平均值"><a href="#滑动窗口的平均值" class="headerlink" title="滑动窗口的平均值"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/qIsx9U/">滑动窗口的平均值</a></h4><p>整体比较简单，使用队列维护滑动窗口，超过最大值就poll，再offer，注意考虑返回的double类型需要*1.0强转一下</p>
 
                 
             </div>
