@@ -459,14 +459,14 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2022-07-17
+                    2022-07-21
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    2.4k
+                    2.5k
                 </div>
                 
 
@@ -792,6 +792,7 @@
 <h4 id="滑动窗口的平均值"><a href="#滑动窗口的平均值" class="headerlink" title="滑动窗口的平均值"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/qIsx9U/">滑动窗口的平均值</a></h4><p>整体比较简单，使用队列维护滑动窗口，超过最大值就poll，再offer，注意考虑返回的double类型需要*1.0强转一下</p>
 <h4 id="数组嵌套"><a href="#数组嵌套" class="headerlink" title="数组嵌套"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/array-nesting/submissions/">数组嵌套</a></h4><p>本题主要是要想清楚嵌套的环不管从哪个点入口都是一样的结果，所以要使用全局HashSet记录走过的点。导致超时的错误就是将HashSet放到循环里面，所以每次都需要重新遍历，比如0-3-5是一个环，那么循环到3的时候直接跳不用再找一圈3-5-0出来了。</p>
 <p>还有一种方法我们可以不使用哈希表，而是将遍历过的原数组的值置换为-1，保证每个元素只遍历一次。</p>
+<h4 id="二叉树剪枝"><a href="#二叉树剪枝" class="headerlink" title="二叉树剪枝"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-tree-pruning/">二叉树剪枝</a></h4><p>此题后序遍历，判断当前节点的左右子节点是否存在，如都不存在且自己值为0那么将当前节点置为null</p>
 
                 
             </div>
